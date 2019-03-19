@@ -9,5 +9,35 @@
         <div>
             <button id="style" onclick="js_new_style()">New style</button>
         </div>
+        
+        <script> 
+            function js_new_style() {
+                //Step 1, change style: https://www.w3schools.com/jsref/prop_style_fontstyle.asp
+                //        style: normal, italic, olique, ...
+                //Step 3, click on the button "previous style" to see the paragraph on the original way
+                var x = document.getElementById("text");
+                var y = document.getElementById("style");
+                if (x.style.fontStyle != "italic") {
+                    x.style.fontStyle = "italic";
+                    x.style.color = "red";
+                    x.style.fontSize = "large";
+
+                } else {
+                    x.style.fontStyle = "normal";
+                    x.style.color = "black";
+                    x.style.fontSize = "medium";
+
+                }
+                //Step 2, change the label of button to "Previous style"
+                //Step 4
+                if (y.innerText != "New style")
+                    y.innerText = "New style";
+                else
+                    y.innerText = "Previous style";
+
+
+            }
+        </script>
     </body>
-</html>
+
+    </html>
