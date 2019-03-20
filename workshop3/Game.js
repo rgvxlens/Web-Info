@@ -2,8 +2,11 @@ let gameState = {
 incorrectGuesses : [],
 remainingGuesses : 10
 };
-function setWord (word) {
-//set word to be guessed
+function setWord() {
+	var x = document.getElementById("input").elements;
+	var item = x.item("guess");
+	var word = item.value;
+	alert(word);
 }
 function validate (guess) {
 //validate the input from the form (letter)
