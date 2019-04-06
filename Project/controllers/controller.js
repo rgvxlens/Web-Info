@@ -51,13 +51,25 @@ var findOneUser = function(req, res) {
 //Find one user by name
 var findUserByName = function(req, res) {
     var userName = req.params.name;
-    User.find({name:userName}, function(err, user) {
+    User.findOne({name:userName}, function(err, user) {
         if (!err) {
-            res.send(userName);
+            res.send(user);
         } else {
             res.sendStatus(404);
         }
     });
+};
+
+//Delete user by id
+var deleteUserById = function(req, res) {
+    var userId = req.params.id;
+    User.findByIdAndRemove(userId, function(err, user) {
+        if (!err) {
+            res.send("delete user");
+        } else {
+            res.status(404).send(err);
+        }
+   });
 };
 
 
@@ -65,6 +77,7 @@ module.exports.createUser = createUser;
 module.exports.findAllUsers = findAllUsers;
 module.exports.findOneUser = findOneUser;
 module.exports.findUserByName = findUserByName;
+module.exports.deleteUserById = deleteUserById;
 /* User's operations end here */
 /******************************/
 
@@ -118,18 +131,31 @@ var findRestaurantByName = function(req, res) {
     var restName = req.params.name;
     Restaurant.find({name:restName}, function(err, restaurant) {
         if (!err) {
-            res.send(restName);
+            res.send(rest);
         } else {
             res.sendStatus(404);
         }
     });
 };
 
+//Delete restaurant by id
+var deleteRestaurantById = function(req, res) {
+    var restId = req.params.id;
+    Restaurant.findByIdAndRemove(restId, function(err, restaurant) {
+        if (!err) {
+            res.send("delete restaurant");
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
+
+
 module.exports.createRestaurant = createRestaurant;
 module.exports.findAllRestaurants = findAllRestaurants;
 module.exports.findOneRestaurant = findOneRestaurant;
 module.exports.findRestaurantByName = findRestaurantByName;
-
+module.exports.deleteRestaurantById = deleteRestaurantById;
 /* Restaurant's operations end here */
 /************************************/
 
