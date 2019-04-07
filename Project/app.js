@@ -11,14 +11,21 @@ require('./models/db.js');
 var routes = require('./routes/routes.js');
 app.use('/', routes);
 
+// For rendering page
+//const path = require('path');
+//var index = require('./routes/index.js');
+//app.set('view engine', 'ejs');
+//app.set('views', path.join(__dirname, 'views'));
+
 app.get('/',function(req,res) {
     res.send("Hello World!");
+    //res.sendFile(path.join(__dirname+'/Home.html'));
+    //res.render('Home.html');
 });
 
-//app.post     [new]
-//app.post(id) [update]
-//app.delete   [delete]
 //Start the server
-app.listen(3000,function(req,res) {
-    console.log('Express listening on port 3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+      console.log(`listening on port ${PORT}`);
 });
+

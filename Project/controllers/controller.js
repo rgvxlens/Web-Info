@@ -13,7 +13,7 @@ var createUser = function(req, res) {
     var user = new User({
         "name":req.body.name,
         "email":req.body.email,
-        "card":req.body.card
+        "password":req.body.password
     });
     
     user.save(function(err, newUser) {

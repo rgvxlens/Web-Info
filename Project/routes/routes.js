@@ -41,4 +41,6 @@ router.delete('/restaurants/id/:id', controller.deleteRestaurantById);
 
 /* Restaurant's operations end here */
 /************************************/
+
 module.exports = router;
+
