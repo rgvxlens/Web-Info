@@ -60,6 +60,49 @@ var findUserByName = function(req, res) {
     });
 };
 
+//Update user's data by name
+//Can't change the name, otherwise, it won't be able to find it
+var updateUserByName = function(req, res) {
+    var userName = req.params.name;
+    User.findOne({name:userName}, function(err, user) {
+        if (err) {
+            res.sendStatus(404);
+        }
+        
+        user.email = req.body.email;
+        user.password = req.body.password;
+        
+        user.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+
+            res.send(user);
+        });
+    });
+
+};
+
+//Update user's data by id
+var updateUserById = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err) {
+            res.sendStatus(404);
+        }
+       
+        user.name = req.body.name;
+        user.email = req.body.email;
+        user.password = req.body.password;
+        
+        user.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+
+            res.send(user);
+        });
+    });
+};
+
+
 //Delete user by id
 var deleteUserById = function(req, res) {
     var userId = req.params.id;
@@ -77,6 +120,8 @@ module.exports.createUser = createUser;
 module.exports.findAllUsers = findAllUsers;
 module.exports.findOneUser = findOneUser;
 module.exports.findUserByName = findUserByName;
+module.exports.updateUserById = updateUserById;
+module.exports.updateUserByName = updateUserByName;
 module.exports.deleteUserById = deleteUserById;
 /* User's operations end here */
 /******************************/
@@ -131,11 +176,57 @@ var findRestaurantByName = function(req, res) {
     var restName = req.params.name;
     Restaurant.find({name:restName}, function(err, restaurant) {
         if (!err) {
-            res.send(rest);
+            res.send(restaurant);
         } else {
             res.sendStatus(404);
         }
     });
+};
+
+
+//Update user's data by name
+var updateRestaurantByName = function(req, res) {
+    var restName = req.params.name;
+    Restaurant.findOne({name:restName}, function(err, restaurant) {
+        if (err) {
+            res.sendStatus(404);
+        }
+        
+        restaurant.location = req.body.location;
+        restaurant.food = req.body.food;
+        restaurant.time = req.body.time;
+
+        restaurant.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+
+            res.send(restaurant);
+        });
+    });
+
+
+};
+
+//Update user's data by id
+var updateRestaurantById = function(req, res) {
+    Restaurant.findById(req.params.id, function(err, restaurant) {
+        if (err) {
+            res.sendStatus(404);
+        }
+       
+        restaurant.name = req.body.name;
+        restaurant.location = req.body.location;
+        restaurant.food = req.body.food;
+        restaurant.time = req.body.time;
+
+        restaurant.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+
+            res.send(restaurant);
+        });
+    });
+
 };
 
 //Delete restaurant by id
@@ -155,7 +246,10 @@ module.exports.createRestaurant = createRestaurant;
 module.exports.findAllRestaurants = findAllRestaurants;
 module.exports.findOneRestaurant = findOneRestaurant;
 module.exports.findRestaurantByName = findRestaurantByName;
+module.exports.updateRestaurantById = updateRestaurantById;
+module.exports.updateRestaurantByName = updateRestaurantByName;
 module.exports.deleteRestaurantById = deleteRestaurantById;
+
 /* Restaurant's operations end here */
 /************************************/
 
