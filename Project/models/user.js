@@ -3,7 +3,7 @@ var userSchema = mongoose.Schema(
     {
         "name":String,
         "email":String,
-        "card":String
+        "password":String
     }
 );
 
