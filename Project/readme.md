@@ -37,7 +37,7 @@ Assignment 2: Mockup Application Server (Week 6)
   
   Example:
 
-  [https://kitchen2kitchen.herokuapp.com/users/name/patrick](https://kitchen2kitchen.herokuapp.com/users/name/patrick)
+  [https://kitchen2kitchen.herokuapp.com/users/name/te23423](https://kitchen2kitchen.herokuapp.com/users/name/te23423)
      
 
 * **Updating a particular user's details by their name (can be tested with Insomnia (or any other REST client)**
@@ -76,16 +76,8 @@ Assignment 2: Mockup Application Server (Week 6)
    
   Example:
 
-  [https://kitchen2kitchen.herokuapp.com/restaurants/id/5cb173d81c9d44000031397e](https://kitchen2kitchen.herokuapp.com/restaurants/id/5cb173d81c9d44000031397e)
+  [https://kitchen2kitchen.herokuapp.com/products/id/5cb14cba74a9292fe0cfe536](https://kitchen2kitchen.herokuapp.com/products/id/5cb14cba74a9292fe0cfe536)
    
-
-* **Finding a particular products in the DB by its name**
-
-   ```router.get('/products/name/:name', controller.findRestaurantByName);```
-   
-   Example:
-   
-   [https://kitchen2kitchen.herokuapp.com/products/name/Hungry%20Jacks](https://kitchen2kitchen.herokuapp.com/products/name/Hungry%20Jacks)
 
 * **Update a product's details by id of the product (can be tested with Insomnia (or any other REST client)**
 
