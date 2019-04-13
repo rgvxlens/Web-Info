@@ -42,10 +42,10 @@ router.get('/products/id/:id', controller.findOneProduct);
 //Find one product by name
 router.get('/products/name/:name', controller.findProductByName);
 
-//Update user's data by name
+//Update product's data by name
 router.put('/products/name/:name', controller.updateProductByName);
 
-//Update user's data by id
+//Update product's data by id
 router.put('/products/id/:id', controller.updateProductById);
 
 //Delete product by id

@@ -20,6 +20,7 @@ var createUser = function(req, res) {
         "phoneNumber":req.body.phoneNumber,
         "userRating":req.body.userRating,
         "streetAddress": {
+            "text":req.body.streetAddress.text,
             "components": {
               "street":req.body.streetAddress.components.street,
                 "number":req.body.streetAddress.components.number,
@@ -85,8 +86,15 @@ var updateUserByName = function(req, res) {
             res.sendStatus(404);
         }
         
+        user.createdAt = req.body.createdAt;
+        user.userId = req.body.userId;
+        user.name = req.body.name;
         user.email = req.body.email;
         user.password = req.body.password;
+        user.phoneNumber = req.body.phoneNumber;
+        user.userRating = req.body.userRating;
+        user.streetAddress.text = req.body.streetAddress.text;
+        user.streetAddress.components = req.body.streetAddress.components;
         
         user.save(function(err) {
             if (err)
@@ -105,9 +113,15 @@ var updateUserById = function(req, res) {
             res.sendStatus(404);
         }
        
+        user.createdAt = req.body.createdAt;
+        user.userId = req.body.userId;
         user.name = req.body.name;
         user.email = req.body.email;
         user.password = req.body.password;
+        user.phoneNumber = req.body.phoneNumber;
+        user.userRating = req.body.userRating;
+        user.streetAddress.text = req.body.streetAddress.text;
+        user.streetAddress.components = req.body.streetAddress.components;
         
         user.save(function(err) {
             if (err)
@@ -205,7 +219,7 @@ var findProductByName = function(req, res) {
 };
 
 
-//Update user's data by name
+//Update product's data by name
 var updateProductByName = function(req, res) {
     var restName = req.params.name;
     Product.findOne({name:restName}, function(err, product) {
@@ -213,9 +227,14 @@ var updateProductByName = function(req, res) {
             res.sendStatus(404);
         }
         
-        product.location = req.body.location;
-        product.food = req.body.food;
-        product.time = req.body.time;
+        product.userId = req.body.userId;
+        product.createdAt = req.body.createdAt;
+        product.name = req.body.name;
+        product.description = req.body.description;
+        product.expirationDate = req.body.expirationDate;
+        product.category = req.body.category;
+        product.condition = req.body.condition;
+        product.rating = req.body.rating;
 
         product.save(function(err) {
             if (err)
@@ -228,17 +247,21 @@ var updateProductByName = function(req, res) {
 
 };
 
-//Update user's data by id
+//Update product's data by id
 var updateProductById = function(req, res) {
     Product.findById(req.params.id, function(err, product) {
         if (err) {
             res.sendStatus(404);
         }
        
+        product.userId = req.body.userId;
+        product.createdAt = req.body.createdAt;
         product.name = req.body.name;
-        product.location = req.body.location;
-        product.food = req.body.food;
-        product.time = req.body.time;
+        product.description = req.body.description;
+        product.expirationDate = req.body.expirationDate;
+        product.category = req.body.category;
+        product.condition = req.body.condition;
+        product.rating = req.body.rating;
 
         product.save(function(err) {
             if (err)
@@ -312,7 +335,7 @@ var findAllOrders = function(req, res) {
 
 // Find one order by id
 var findOneOrder = function(req, res) {
-    var restInx = req.params.orderId;
+    var restInx = req.params.id;
     Order.findById(restInx, function(err, order) {
         if (!err) {
             res.send(order);

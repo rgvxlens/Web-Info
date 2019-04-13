@@ -1,15 +1,6 @@
 // Create database
 var mongoose = require('mongoose');
 
-//mongodb://<dbuser>:<dbpassword>
-//mongoose.connect('', function(err){
-//    if(!err) {
-//        console.log('Connected to mongo');
-//    } else {
-//        console.log('Failed to connect to mongo');
-//    }
-//});
-
 //const dbURI =
 // "mongodb+srv://<username>:<password>@cluster0-w4o9c.mongodb.net/";
 //copy from CONNECT (MongoDB Atlas)
