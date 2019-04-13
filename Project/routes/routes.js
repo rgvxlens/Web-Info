@@ -29,29 +29,48 @@ router.delete('/users/id/:id', controller.deleteUserById);
 /******************************/
 
 /***************************************/
-/* For all the restaurant's operation */
-// Create new restaurant
-router.post('/restaurants', controller.createRestaurant);
+/* For all the product's operation */
+// Create new product
+router.post('/products', controller.createProduct);
  
-// Find all restaurants
-router.get('/restaurants', controller.findAllRestaurants);
+// Find all products
+router.get('/products', controller.findAllProducts);
  
-// Find one restaurant by id
-router.get('/restaurants/id/:id', controller.findOneRestaurant);
+// Find one product by id
+router.get('/products/id/:id', controller.findOneProduct);
  
-//Find one restaurant by name
-router.get('/restaurants/name/:name', controller.findRestaurantByName);
+//Find one product by name
+router.get('/products/name/:name', controller.findProductByName);
 
 //Update user's data by name
-router.put('/restaurants/name/:name', controller.updateRestaurantByName);
+router.put('/products/name/:name', controller.updateProductByName);
 
 //Update user's data by id
-router.put('/restaurants/id/:id', controller.updateRestaurantById);
+router.put('/products/id/:id', controller.updateProductById);
 
-//Delete restaurant by id
-router.delete('/restaurants/id/:id', controller.deleteRestaurantById);
+//Delete product by id
+router.delete('/products/id/:id', controller.deleteProductById);
 
-/* Restaurant's operations end here */
+/* product's operations end here */
+/************************************/
+
+/***************************************/
+/* For all the order's operation */
+// Create new order
+router.post('/orders', controller.createOrder);
+ 
+// Find all orders
+router.get('/orders', controller.findAllOrders);
+ 
+// Find one order by id
+router.get('/orders/id/:id', controller.findOneOrder);
+ 
+//Update orders data by id
+router.put('/orders/id/:id', controller.updateOrderById);
+
+//Delete order by id
+router.delete('/orders/id/:id', controller.deleteOrderById);
+/* order's operations end here */
 /************************************/
 
 module.exports = router;

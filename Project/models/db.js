@@ -29,4 +29,5 @@ mongoose.connect(dbURI, options).then(
 );
 
 require('./user.js');
-require('./restaurant.js');
+require('./product.js');
+require('./order.js');

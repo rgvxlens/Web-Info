@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('users');
-var Restaurant = mongoose.model('restaurants');
+var Product = mongoose.model('products');
+var Order = mongoose.model('orders');
 var express = require('express');
 const app = express();
 var bodyParser = require('body-parser');
@@ -11,9 +12,24 @@ app.use(bodyParser.json());
 // Create new user
 var createUser = function(req, res) {
     var user = new User({
+        "createdAt":req.body.createdAt,
+        "userId":req.body.userId,
         "name":req.body.name,
         "email":req.body.email,
-        "password":req.body.password
+        "password":req.body.password,
+        "phoneNumber":req.body.phoneNumber,
+        "userRating":req.body.userRating,
+        "streetAddress": {
+            "components": {
+              "street":req.body.streetAddress.components.street,
+                "number":req.body.streetAddress.components.number,
+                "city":req.body.streetAddress.components.city,
+                "area":req.body.streetAddress.components.area,
+                "country":req.body.streetAddress.components.country,
+                "postalCode":req.body.streetAddress.components.postalCode,
+                "building":req.body.streetAddress.components.building 
+            }
+        }
     });
     
     user.save(function(err, newUser) {
@@ -127,56 +143,61 @@ module.exports.deleteUserById = deleteUserById;
 /******************************/
 
 /***************************************/
-/* For all the restaurant's operation */
-// Create new restaurant
-var createRestaurant = function(req, res) {
-    var restaurant = new Restaurant(
+/* For all the products operation */
+// Create new product
+var createProduct = function(req, res) {
+    var product = new Product(
         {
+            "userId":req.body.userId,
+            "createdAt":req.body.createdAt,
             "name":req.body.name,
-            "location":req.body.location,
-            "food":req.body.food,
-            "time":req.body.time
+            "description":req.body.description,
+            "expirationDate":req.body.expirationDate,
+            "category":req.body.category,
+            "condition":req.body.condition,
+            "rating":req.body.rating
         }
     );
 
-    restaurant.save(function(err, newRestaurant) {
+    product.save(function(err, newProduct) {
         if (!err) {
-            res.send(newRestaurant);
+            res.send(newProduct);
         } else {
+            console.log("here");
             res.sendStatus(400);
         }
     });
 };
  
-// Find all restaurants
-var findAllRestaurants = function(req, res) {
-    Restaurant.find(function(err, restaurants) {
+// Find all products
+var findAllProducts = function(req, res) {
+    Product.find(function(err, products) {
         if (!err) {
-            res.send(restaurants);
+            res.send(products);
         } else {
             res.sendStatus(404);
         }
     });
 };
 
-// Find one restaurant by id
-var findOneRestaurant = function(req, res) {
+// Find one product by id
+var findOneProduct = function(req, res) {
     var restInx = req.params.id;
-    Restaurant.findById(restInx, function(err, restaurant) {
+    Product.findById(restInx, function(err, product) {
         if (!err) {
-            res.send(restaurant);
+            res.send(product);
         } else {
             res.sendStatus(404);
         }
     });
 };
  
-//Find one restaurant by name
-var findRestaurantByName = function(req, res) {
+//Find one product by name
+var findProductByName = function(req, res) {
     var restName = req.params.name;
-    Restaurant.find({name:restName}, function(err, restaurant) {
+    Product.find({name:restName}, function(err, product) {
         if (!err) {
-            res.send(restaurant);
+            res.send(product);
         } else {
             res.sendStatus(404);
         }
@@ -185,22 +206,22 @@ var findRestaurantByName = function(req, res) {
 
 
 //Update user's data by name
-var updateRestaurantByName = function(req, res) {
+var updateProductByName = function(req, res) {
     var restName = req.params.name;
-    Restaurant.findOne({name:restName}, function(err, restaurant) {
+    Product.findOne({name:restName}, function(err, product) {
         if (err) {
             res.sendStatus(404);
         }
         
-        restaurant.location = req.body.location;
-        restaurant.food = req.body.food;
-        restaurant.time = req.body.time;
+        product.location = req.body.location;
+        product.food = req.body.food;
+        product.time = req.body.time;
 
-        restaurant.save(function(err) {
+        product.save(function(err) {
             if (err)
                 res.sendStatus(404);
 
-            res.send(restaurant);
+            res.send(product);
         });
     });
 
@@ -208,33 +229,33 @@ var updateRestaurantByName = function(req, res) {
 };
 
 //Update user's data by id
-var updateRestaurantById = function(req, res) {
-    Restaurant.findById(req.params.id, function(err, restaurant) {
+var updateProductById = function(req, res) {
+    Product.findById(req.params.id, function(err, product) {
         if (err) {
             res.sendStatus(404);
         }
        
-        restaurant.name = req.body.name;
-        restaurant.location = req.body.location;
-        restaurant.food = req.body.food;
-        restaurant.time = req.body.time;
+        product.name = req.body.name;
+        product.location = req.body.location;
+        product.food = req.body.food;
+        product.time = req.body.time;
 
-        restaurant.save(function(err) {
+        product.save(function(err) {
             if (err)
                 res.sendStatus(404);
 
-            res.send(restaurant);
+            res.send(product);
         });
     });
 
 };
 
 //Delete restaurant by id
-var deleteRestaurantById = function(req, res) {
+var deleteProductById = function(req, res) {
     var restId = req.params.id;
-    Restaurant.findByIdAndRemove(restId, function(err, restaurant) {
+    Product.findByIdAndRemove(restId, function(err, product) {
         if (!err) {
-            res.send("delete restaurant");
+            res.send("delete product");
         } else {
             res.sendStatus(404);
         }
@@ -242,15 +263,107 @@ var deleteRestaurantById = function(req, res) {
 };
 
 
-module.exports.createRestaurant = createRestaurant;
-module.exports.findAllRestaurants = findAllRestaurants;
-module.exports.findOneRestaurant = findOneRestaurant;
-module.exports.findRestaurantByName = findRestaurantByName;
-module.exports.updateRestaurantById = updateRestaurantById;
-module.exports.updateRestaurantByName = updateRestaurantByName;
-module.exports.deleteRestaurantById = deleteRestaurantById;
+module.exports.createProduct = createProduct;
+module.exports.findAllProducts = findAllProducts;
+module.exports.findOneProduct = findOneProduct;
+module.exports.findProductByName = findProductByName;
+module.exports.updateProductById = updateProductById;
+module.exports.updateProductByName = updateProductByName;
+module.exports.deleteProductById = deleteProductById;
 
 /* Restaurant's operations end here */
 /************************************/
 
+/***************************************/
+/* For all the orders operation */
+// Create new Order
+var createOrder = function(req, res) {
+    var order = new Order(
+        {
+            "orderId":req.body.orderId,
+            "supplierId":req.body.supplierId,
+            "recieverId":req.body.recieverId,
+            "createdAt":req.body.createdAt,
+            "supRating":req.body.supRating,
+            "recRating":req.body.recRating,
+            "productId":req.body.productId 
+        }
+    );
+
+    order.save(function(err, newOrder) {
+        if (!err) {
+            res.send(newOrder);
+        } else {
+            res.sendStatus(400);
+        }
+    });
+};
+ 
+// Find all products
+var findAllOrders = function(req, res) {
+    Order.find(function(err, orders) {
+        if (!err) {
+            res.send(orders);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
+
+// Find one order by id
+var findOneOrder = function(req, res) {
+    var restInx = req.params.orderId;
+    Order.findById(restInx, function(err, order) {
+        if (!err) {
+            res.send(order);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
+
+//Update orders data by id
+var updateOrderById = function(req, res) {
+    Order.findById(req.params.id, function(err, order) {
+        if (err) {
+            res.sendStatus(404);
+        }
+        order.supplierId = req.body.supplierId,
+        order.recieverId = req.body.recieverId,
+        order.createdAt = req.body.createdAt,
+        order.supRating = req.body.supRating,
+        order.recRating = req.body.recRating,
+        order.productId = req.body.productId 
+
+        order.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+
+            res.send(order);
+        });
+    });
+
+};
+
+//Delete order by id
+var deleteOrderById = function(req, res) {
+    var restId = req.params.id;
+    Order.findByIdAndRemove(restId, function(err, order) {
+        if (!err) {
+            res.send("delete order");
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
+
+
+module.exports.createOrder = createOrder;
+module.exports.findAllOrders = findAllOrders;
+module.exports.findOneOrder = findOneOrder;
+module.exports.updateOrderById = updateOrderById;
+module.exports.deleteOrderById = deleteOrderById;
+
+/* Restaurant's operations end here */
+/************************************/
 
