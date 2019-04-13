@@ -28,7 +28,7 @@ Assignment 2: Mockup Application Server (Week 6)
   
   Example:
 
-  [https://kitchen2kitchen.herokuapp.com/users/id/5ca6eed01c9d440000770310](https://kitchen2kitchen.herokuapp.com/users/id/5ca6eed01c9d440000770310)
+  [https://kitchen2kitchen.herokuapp.com/users/id/5cb1e3546eea5150a12cec38](https://kitchen2kitchen.herokuapp.com/users/id/5cb1e3546eea5150a12cec38)
      
 
 * **Finding a particular user by their name**
@@ -55,52 +55,46 @@ Assignment 2: Mockup Application Server (Week 6)
    ```router.delete('/users/id/:id', controller.deleteUserById);```
 
 
-### Restaurant-based Operations
-* **Creating a new restaurant in the DB (can be tested with Insomnia (or any other REST client)**
+### Product-based Operations
+* **Creating a new product in the DB (can be tested with Insomnia (or any other REST client)**
 
-  ```router.post('/restaurants', controller.createRestaurant);```
+  ```router.post('/products', controller.createProduct);```
 
 
-* **Finding a list of all the restaurants in the DB**
+* **Finding a list of all the product in the DB**
 
-   ```router.get('/restaurants', controller.findAllRestaurants);```
+   ```router.get('/products', controller.findAllProducts);```
    
   Example:
 
-  [https://kitchen2kitchen.herokuapp.com/restaurants/](https://kitchen2kitchen.herokuapp.com/restaurants/)
+  [https://kitchen2kitchen.herokuapp.com/products/](https://kitchen2kitchen.herokuapp.com/products/)
 
 
-* **Finding a particular restaurant in the DB by their id**
+* **Finding a particular product in the DB by their id**
 
-   ```router.get('/restaurants/id/:id', controller.findOneRestaurant);```
+   ```router.get('/product/id/:id', controller.findOneRestaurant);```
    
   Example:
 
   [https://kitchen2kitchen.herokuapp.com/restaurants/id/5cb173d81c9d44000031397e](https://kitchen2kitchen.herokuapp.com/restaurants/id/5cb173d81c9d44000031397e)
    
 
-* **Finding a particular restaurant in the DB by its name**
+* **Finding a particular products in the DB by its name**
 
-   ```router.get('/restaurants/name/:name', controller.findRestaurantByName);```
+   ```router.get('/products/name/:name', controller.findRestaurantByName);```
    
    Example:
    
-   [https://kitchen2kitchen.herokuapp.com/restaurants/name/Hungry%20Jacks](https://kitchen2kitchen.herokuapp.com/restaurants/name/Hungry%20Jacks)
+   [https://kitchen2kitchen.herokuapp.com/products/name/Hungry%20Jacks](https://kitchen2kitchen.herokuapp.com/products/name/Hungry%20Jacks)
+
+* **Update a product's details by id of the product (can be tested with Insomnia (or any other REST client)**
+
+  ```router.put('/products/id/:id', controller.updateProductById);```
 
 
-* **Update a user's details by name of the restaurant (can be tested with Insomnia (or any other REST client)**
+* **Deleting a product by their id in the DB (can be tested with Insomnia (or any other REST client)**
 
-  ```router.put('/restaurants/nae/:name', controller.updateRestaurantByName);```
-
-
-* **Update a user's details by id of the restaurant (can be tested with Insomnia (or any other REST client)**
-
-  ```router.put('/restaurants/id/:id', controller.updateRestaurantById);```
-
-
-* **Deleting a restaurant by their id in the DB (can be tested with Insomnia (or any other REST client)**
-
-  ```router.delete('/restaurants/id/:id', controller.deleteRestaurantById);```
+  ```router.delete('/products/id/:id', controller.deleteProductById);```
 
 
 ### Order-based Operations
