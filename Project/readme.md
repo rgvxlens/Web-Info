@@ -19,7 +19,7 @@ Assignment 2: Mockup Application Server (Week 6)
   
   Example:
 
-  [https://https://kitchen2kitchen.herokuapp.com/users/](https://https://kitchen2kitchen.herokuapp.com/users/)
+  [https://kitchen2kitchen.herokuapp.com/users/](https://kitchen2kitchen.herokuapp.com/users/)
    
 
 * **Finding a particular user by their ID**
@@ -28,7 +28,7 @@ Assignment 2: Mockup Application Server (Week 6)
   
   Example:
 
-  [https://https://kitchen2kitchen.herokuapp.com/users/id/5ca6eed01c9d440000770310](https://https://kitchen2kitchen.herokuapp.com/users/id/5ca6eed01c9d440000770310)
+  [https://kitchen2kitchen.herokuapp.com/users/id/5ca6eed01c9d440000770310](https://kitchen2kitchen.herokuapp.com/users/id/5ca6eed01c9d440000770310)
      
 
 * **Finding a particular user by their name**
@@ -37,7 +37,7 @@ Assignment 2: Mockup Application Server (Week 6)
   
   Example:
 
-  [https://https://kitchen2kitchen.herokuapp.com/users/name/patrick](https://https://kitchen2kitchen.herokuapp.com/users/name/patrick)
+  [https://kitchen2kitchen.herokuapp.com/users/name/patrick](https://kitchen2kitchen.herokuapp.com/users/name/patrick)
      
 
 * **Updating a particular user's details by their name (can be tested with Insomnia (or any other REST client)**
