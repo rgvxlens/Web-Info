@@ -45,12 +45,12 @@ Assignment 2: Mockup Application Server (Week 6)
    ```router.put('/users/name/:name', controller.updateUserByName);```
 
 
-* **Updating a particular user's details by their id (can be tested with Insomnia (or any other REST client)**
+* **Updating a particular user's details by their ID (can be tested with Insomnia (or any other REST client)**
 
    ```router.put('/users/id/:id', controller.updateUserById);```
   
 
-* **Deleting a particular user details by their id (can be tested with Insomnia (or any other REST client)**
+* **Deleting a particular user details by their ID (can be tested with Insomnia (or any other REST client)**
 
    ```router.delete('/users/id/:id', controller.deleteUserById);```
 
@@ -70,7 +70,7 @@ Assignment 2: Mockup Application Server (Week 6)
   [https://kitchen2kitchen.herokuapp.com/products/](https://kitchen2kitchen.herokuapp.com/products/)
 
 
-* **Finding a particular product in the DB by their id**
+* **Finding a particular product in the DB by their ID**
 
    ```router.get('/product/id/:id', controller.findOneRestaurant);```
    
@@ -79,12 +79,12 @@ Assignment 2: Mockup Application Server (Week 6)
   [https://kitchen2kitchen.herokuapp.com/products/id/5cb14cba74a9292fe0cfe536](https://kitchen2kitchen.herokuapp.com/products/id/5cb14cba74a9292fe0cfe536)
    
 
-* **Update a product's details by id of the product (can be tested with Insomnia (or any other REST client)**
+* **Update a product's details by ID of the product (can be tested with Insomnia (or any other REST client)**
 
   ```router.put('/products/id/:id', controller.updateProductById);```
 
 
-* **Deleting a product by their id in the DB (can be tested with Insomnia (or any other REST client)**
+* **Deleting a product by their ID in the DB (can be tested with Insomnia (or any other REST client)**
 
   ```router.delete('/products/id/:id', controller.deleteProductById);```
 
@@ -109,11 +109,11 @@ Assignment 2: Mockup Application Server (Week 6)
   ```router.get('/orders/id', controller.findOneOrder);```  
 
 
-* **Updating an order's data in the DB by its id**
+* **Updating an order's data in the DB by its ID**
 
   ```router.put('/orders/id/:id', controller.updateOrderById);```
 
 
-* **Deleting an order by its id**
+* **Deleting an order by its ID**
 
   ```router.delete('/orders/id/:id', controller.deleteOrderById);```
