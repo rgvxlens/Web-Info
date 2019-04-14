@@ -110,7 +110,7 @@ Assignment 2: Mockup Application Server (Week 6)
   
   Example:
   
-  [http://kitchen2kitchen.herokuapp.com/orders/id/5cb153ee98bbf631106d4cfa(http://kitchen2kitchen.herokuapp.com/orders/id/5cb153ee98bbf631106d4cfa)
+  [http://kitchen2kitchen.herokuapp.com/orders/id/5cb153ee98bbf631106d4cfa](http://kitchen2kitchen.herokuapp.com/orders/id/5cb153ee98bbf631106d4cfa)
 
 
 * **Updating an order's data in the DB by its ID (can be tested with Insomnia (or any other REST client)**
