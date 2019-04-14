@@ -104,16 +104,20 @@ Assignment 2: Mockup Application Server (Week 6)
   [http://kitchen2kitchen.herokuapp.com/orders](http://kitchen2kitchen.herokuapp.com/orders)
 
 
-* **Finding a particular order in the DB**
+* **Finding a particular order in the DB by its ID**
 
   ```router.get('/orders/id', controller.findOneOrder);```  
+  
+  Example:
+  
+  [http://kitchen2kitchen.herokuapp.com/orders/id/5cb153ee98bbf631106d4cfa(http://kitchen2kitchen.herokuapp.com/orders/id/5cb153ee98bbf631106d4cfa)
 
 
-* **Updating an order's data in the DB by its ID**
+* **Updating an order's data in the DB by its ID (can be tested with Insomnia (or any other REST client)**
 
   ```router.put('/orders/id/:id', controller.updateOrderById);```
 
 
-* **Deleting an order by its ID**
+* **Deleting an order by its ID (can be tested with Insomnia (or any other REST client)**
 
   ```router.delete('/orders/id/:id', controller.deleteOrderById);```
