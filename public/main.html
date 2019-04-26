@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     <link href="resources/css/jquery-ui-themes.css" type="text/css" rel="stylesheet"/>
     <link href="resources/css/axure_rp_page.css" type="text/css" rel="stylesheet"/>
     <link href="data/styles.css" type="text/css" rel="stylesheet"/>
@@ -20,6 +21,13 @@
       $axure.utils.getOtherPath = function() { return 'resources/Other.html'; };
       $axure.utils.getReloadPath = function() { return 'resources/reload.html'; };
     </script>
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-core.js"
+          type="text/javascript" charset="utf-8"></script>
+    <script src="http://js.api.here.com/v3/3.0/mapsjs-service.js"
+          type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.0/mapsjs-mapevents.js"></script>
+    <script scr="./scripts/map.js" charset="utf-8"></script>
   </head>
   <body>
     <div id="base" class="">
@@ -29,13 +37,97 @@
         <div id="u35_div" class=""></div>
       </div>
 
-      <!-- Unnamed (Dynamic Panel) -->
+      <!-- Unnamed Map Element -->
       <div id="u36" class="ax_default">
         <div id="u36_state0" class="panel_state" data-label="State1" style="">
-          <div id="u36_state0_content" class="panel_state_content">
-          </div>
+          <div id="u36_state0_content" class="panel_state_content"></div>
         </div>
       </div>
+    
+      <script>
+        /**
+         * Creates a new marker and adds it to a group
+         * @param {H.map.Group} group       The group holding the new marker
+         * @param {H.geo.Point} coordinate  The location of the marker
+         * @param {String} html             Data associated with the marker
+         */
+        function addMarkerToGroup(group, coordinate, html) {
+              var marker = new H.map.Marker(coordinate);
+              // add custom data to the marker
+              marker.setData(html);
+              group.addObject(marker);
+        }
+
+        /**
+         * Add two markers showing the position of Liverpool and Manchester City football clubs.
+         * Clicking on a marker opens an infobubble which holds HTML content related to the marker.
+         * @param  {H.Map} map      A HERE Map instance within the application
+         */
+        function addInfoBubble(map) {
+              var group = new H.map.Group();
+
+              map.addObject(group);
+
+              // add 'tap' event listener, that opens info bubble, to the group
+              group.addEventListener('tap', function (evt) {
+                      // event target is the marker itself, group is a parent event target
+                      // for all objects that it contains
+                      var bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
+                                // read custom data
+                                content: evt.target.getData()
+                              });
+                      // show info bubble
+                      ui.addBubble(bubble);
+                    }, false);
+
+              addMarkerToGroup(group, {lat:-37.8005, lng:144.9647},
+                      '<div><a href=\'https://www.dominos.com.au/store/vic-carlton-98843\' >Domino\'s Pizza</a>' +
+                      '</div><div >Domino<br>Food:Pizza</div>');
+
+              addMarkerToGroup(group, {lat:-37.80717, lng:144.9598},
+                      '<div ><a href=\'https://mcdonalds.com.au/?utm_medium=local&utm_source=google%20my%20business&utm_campaign=local%20search&utm_content=vic&utm_term=mcdonalds%20victoria%20markets\' >McDonald</a>' +
+                      '</div><div >McDonald<br>Food: Big Mac</div>');
+
+        }
+          
+        // Initialize the platform object:
+        var platform = new H.service.Platform({
+            'app_id': 'ZYIQ5swtQDsRUwXTewup',
+            'app_code': '6MYBmzItOKKLhzn2xaEz4g',
+            useHTTPS: true
+        });
+
+        // Obtain the default map types from the platform object
+        var pixelRatio = window.devicePixelRatio || 1;
+        var defaultLayers = platform.createDefaultLayers({
+            tileSize: pixelRatio === 1 ? 256 : 512,
+            ppi: pixelRatio === 1 ? undefined : 320
+        });
+        // Instantiate (and display) a map object:
+        var map = new H.Map(document.getElementById('u36_state0'),
+            defaultLayers.normal.map, {
+              center: { lng: 144.96, lat: -37.81 },
+              zoom: 14,
+              pixelRatio: pixelRatio
+        });
+  
+        // Create an icon, an object holding the latitude and longitude, and a marker:
+        var icon = new H.map.Icon('./images/main/u58.png'),
+            coords = {lat: -37.80, lng: 144.96},
+            marker = new H.map.Marker(coords, {icon: icon});
+
+        // MapEvents enables the event system
+        // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+        
+        // create default UI with layers provided by the platform
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
+        
+        // Add the marker to the map and center the map at the location of the marker:
+        map.addObject(marker);
+        map.setCenter(coords);
+        addInfoBubble(map);
+     </script>
 
       <!-- Unnamed (Dynamic Panel) -->
       <div id="u37" class="ax_default">
