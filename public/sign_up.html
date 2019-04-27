@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id='sign-up'>
   <head>
     <title>Sign Up</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -59,58 +61,39 @@
 
       <!-- Unnamed (Rectangle) -->
       <div id="u27" class="ax_default box_1">
-        <img id="u27_img" class="img " src="images/sign_up/u27.png"/>
-        <div id="u27_text" class="text ">
-          <p><span>&nbsp;&nbsp; First name</span></p>
-        </div>
+        <el-input placeholder="First name" v-model="firtstName"></el-input>
       </div>
 
       <!-- Unnamed (Rectangle) -->
       <div id="u28" class="ax_default box_1">
-        <img id="u28_img" class="img " src="images/sign_up/u27.png"/>
-        <div id="u28_text" class="text ">
-          <p><span>&nbsp;&nbsp; Last name</span></p>
-        </div>
+        <el-input placeholder="Last name" v-model="lastName"></el-input>
       </div>
 
-      <!-- Unnamed (Rectangle) -->
-      <div id="u29" class="ax_default box_1">
-        <img id="u29_img" class="img " src="images/sign_up/u29.png"/>
-        <div id="u29_text" class="text ">
-          <p><span>&nbsp;&nbsp; Email address</span></p>
-        </div>
+      <!-- Email Address -->
+      <div id="u29">
+        <el-input placeholder="Email Address" v-model="emailAddress"></el-input>
       </div>
 
-      <!-- Unnamed (Rectangle) -->
-      <div id="u30" class="ax_default box_1">
-        <img id="u30_img" class="img " src="images/sign_up/u29.png"/>
-        <div id="u30_text" class="text ">
-          <p><span>&nbsp;&nbsp; Street Address</span></p>
-        </div>
+      <!-- Street Address -->
+      <div id="u30">
+        <el-input placeholder="Street Address" v-model="streetAddress"></el-input>
       </div>
 
-      <!-- Unnamed (Rectangle) -->
+      <!-- Password -->
       <div id="u31" class="ax_default box_1">
-        <img id="u31_img" class="img " src="images/sign_up/u27.png"/>
-        <div id="u31_text" class="text ">
-          <p><span>&nbsp;&nbsp; Password</span></p>
-        </div>
+        <el-input placeholder="Password" v-model="password" ></el-input>
       </div>
 
-      <!-- Unnamed (Rectangle) -->
+      <!-- Confirm Password -->
       <div id="u32" class="ax_default box_1">
-        <img id="u32_img" class="img " src="images/sign_up/u27.png"/>
-        <div id="u32_text" class="text ">
-          <p><span>&nbsp;&nbsp; Confirm Password</span></p>
-        </div>
+        <el-input placeholder="Confirm password" v-model="passwordConfirm"></el-input>
       </div>
 
-      <!-- Unnamed (Rectangle) -->
+      <!-- Phone Number -->
       <div id="u33" class="ax_default box_1">
-        <img id="u33_img" class="img " src="images/sign_up/u29.png"/>
-        <div id="u33_text" class="text ">
-          <p><span>&nbsp;&nbsp; Phone Number</span></p>
-        </div>
+        <el-input placeholder="Phone Number" v-model="phoneNumber">
+          <template slot="prepend">+61</template>
+        </el-input>
       </div>
 
       <!-- Unnamed (Rectangle) -->
@@ -122,4 +105,16 @@
       </div>
     </div>
   </body>
-</html>
+</div>
+<script>
+    new Vue({
+        el: "#sign-up",
+    
+        methods: {
+            changeTitle() {
+                this.title = this.title.toUpperCase();
+                return this.title;
+            }   
+        }
+    });
+</script>
