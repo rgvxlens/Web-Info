@@ -61,7 +61,7 @@
 
       <!-- Unnamed (Rectangle) -->
       <div id="u27" class="ax_default box_1">
-        <el-input placeholder="First name" v-model="firtstName"></el-input>
+        <el-input placeholder="First name" v-model="firstName"></el-input>
       </div>
 
       <!-- Unnamed (Rectangle) -->
@@ -81,12 +81,12 @@
 
       <!-- Password -->
       <div id="u31" class="ax_default box_1">
-        <el-input placeholder="Password" v-model="password" ></el-input>
+        <el-input placeholder="Password" v-model="password" show-password></el-input>
       </div>
 
       <!-- Confirm Password -->
       <div id="u32" class="ax_default box_1">
-        <el-input placeholder="Confirm password" v-model="passwordConfirm"></el-input>
+        <el-input placeholder="Confirm password" v-model="passwordConfirm" show-password></el-input>
       </div>
 
       <!-- Phone Number -->
@@ -110,11 +110,16 @@
     new Vue({
         el: "#sign-up",
     
-        methods: {
-            changeTitle() {
-                this.title = this.title.toUpperCase();
-                return this.title;
-            }   
+        data: {
+          firstName: '',
+          lastName: '',
+          phoneNumber:'',
+          streetAddress: '',
+          password: '',
+          passwordConfirm: '',
+          emailAddress: ''
+        },
+        methods: { 
         }
     });
 </script>
