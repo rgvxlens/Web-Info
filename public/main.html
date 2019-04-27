@@ -155,25 +155,29 @@
 
         <!-- Unnamed (Rectangle) -->
         <div id="u62" class="ax_default box_1">
-          <img id="u62_img" class="img " src="images/main/u62.png"/>
+          <el-input placeholder="Category" v-model="searchCategory"></el-input>
         </div>
 
         <!-- Unnamed (Rectangle) -->
         <div id="u63" class="ax_default box_1">
-          <img id="u63_img" class="img " src="images/main/u62.png"/>
+          <el-input placeholder="Maximum distance" v-model="searchDistance"></el-input>
         </div>
 
         <!-- Unnamed (Rectangle) -->
         <div id="u64" class="ax_default box_1">
-          <img id="u64_img" class="img " src="images/main/u64.png"/>
+          <el-rate
+            v-model="value2"
+            :colors="colors">
+          </el-rate>
         </div>
 
         <!-- Unnamed (Rectangle) -->
         <div id="u65" class="ax_default box_1">
-          <img id="u65_img" class="img " src="images/main/u64.png"/>
-          <div id="u65_text" class="text ">
-            <p><span>10/11/2019</span></p>
-          </div>
+          <el-date-picker
+            v-model="value1"
+            type="date"
+            placeholder="Pick a day">
+          </el-date-picker>
         </div>
 
         <!-- Unnamed (Rectangle) -->
@@ -198,6 +202,7 @@
           <div id="u68_text" class="text ">
             <p><span>User Rating:</span></p>
           </div>
+          
         </div>
 
         <!-- Unnamed (Rectangle) -->
@@ -245,10 +250,7 @@
 
         <!-- Unnamed (Rectangle) -->
         <div id="u76" class="ax_default box_1">
-          <div id="u76_div" class=""></div>
-          <div id="u76_text" class="text ">
-            <p><span>Log Out</span></p>
-          </div>
+          <el-button type="danger" plain> Log Out </el-button>
         </div>
       </div>
 
@@ -343,7 +345,8 @@
           searchQuery: '',
           productName:'',
           productDescription:'',
-          productExpirationDate: '',      
+          productExpirationDate: '',  
+          colors: ['#99A9BF', '#F7BA2A', '#FF9900']    
         },
         methods: {
             changeTitle() {
