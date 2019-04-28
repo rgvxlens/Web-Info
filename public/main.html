@@ -1,7 +1,9 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id='main'>
   <head>
     <title>Main</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -39,95 +41,11 @@
 
       <!-- Unnamed Map Element -->
       <div id="u36" class="ax_default">
-        <div id="u36_state0" class="panel_state" data-label="State1" style="">
+        <div id="u36_state0">
           <div id="u36_state0_content" class="panel_state_content"></div>
         </div>
       </div>
-    
-      <script>
-        /**
-         * Creates a new marker and adds it to a group
-         * @param {H.map.Group} group       The group holding the new marker
-         * @param {H.geo.Point} coordinate  The location of the marker
-         * @param {String} html             Data associated with the marker
-         */
-        function addMarkerToGroup(group, coordinate, html) {
-              var marker = new H.map.Marker(coordinate);
-              // add custom data to the marker
-              marker.setData(html);
-              group.addObject(marker);
-        }
-
-        /**
-         * Add two markers showing the position of Liverpool and Manchester City football clubs.
-         * Clicking on a marker opens an infobubble which holds HTML content related to the marker.
-         * @param  {H.Map} map      A HERE Map instance within the application
-         */
-        function addInfoBubble(map) {
-              var group = new H.map.Group();
-
-              map.addObject(group);
-
-              // add 'tap' event listener, that opens info bubble, to the group
-              group.addEventListener('tap', function (evt) {
-                      // event target is the marker itself, group is a parent event target
-                      // for all objects that it contains
-                      var bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
-                                // read custom data
-                                content: evt.target.getData()
-                              });
-                      // show info bubble
-                      ui.addBubble(bubble);
-                    }, false);
-
-              addMarkerToGroup(group, {lat:-37.8005, lng:144.9647},
-                      '<div><a href=\'https://www.dominos.com.au/store/vic-carlton-98843\' >Domino\'s Pizza</a>' +
-                      '</div><div >Domino<br>Food:Pizza</div>');
-
-              addMarkerToGroup(group, {lat:-37.80717, lng:144.9598},
-                      '<div ><a href=\'https://mcdonalds.com.au/?utm_medium=local&utm_source=google%20my%20business&utm_campaign=local%20search&utm_content=vic&utm_term=mcdonalds%20victoria%20markets\' >McDonald</a>' +
-                      '</div><div >McDonald<br>Food: Big Mac</div>');
-
-        }
-          
-        // Initialize the platform object:
-        var platform = new H.service.Platform({
-            app_id: 'ZYIQ5swtQDsRUwXTewup',
-            app_code: '6MYBmzItOKKLhzn2xaEz4g',
-            useHTTPS: true
-        });
-
-        // Obtain the default map types from the platform object
-        var pixelRatio = window.devicePixelRatio || 1;
-        var defaultLayers = platform.createDefaultLayers({
-            tileSize: pixelRatio === 1 ? 256 : 512,
-            ppi: pixelRatio === 1 ? undefined : 320
-        });
-        // Instantiate (and display) a map object:
-        var map = new H.Map(document.getElementById('u36_state0'),
-            defaultLayers.normal.map, {
-              center: { lng: 144.96, lat: -37.81 },
-              zoom: 14,
-              pixelRatio: pixelRatio
-        });
   
-        // Create an icon, an object holding the latitude and longitude, and a marker:
-        var icon = new H.map.Icon('./images/main/u58.png'),
-            coords = {lat: -37.80, lng: 144.96},
-            marker = new H.map.Marker(coords, {icon: icon});
-
-        // MapEvents enables the event system
-        // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
-        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-        
-        // create default UI with layers provided by the platform
-        var ui = H.ui.UI.createDefault(map, defaultLayers);
-        
-        // Add the marker to the map and center the map at the location of the marker:
-        map.addObject(marker);
-        map.setCenter(coords);
-        addInfoBubble(map);
-     </script>
 
       <!-- Unnamed (Dynamic Panel) -->
       <div id="u37" class="ax_default">
@@ -142,25 +60,11 @@
         </div>
       </div>
 
-      <!-- Search Bar (Group) -->
+      <!-- Search Bar -->
       <div id="u39" class="ax_default" data-label="Search Bar" data-left="492" data-top="114" data-width="482" data-height="50">
-
-        <!-- Unnamed (Rectangle) -->
+        <!-- Search Field -->
         <div id="u40" class="ax_default box_2">
-          <div id="u40_div" class=""></div>
-        </div>
-
-        <!-- Unnamed (Shape) -->
-        <div id="u41" class="ax_default icon">
-          <img id="u41_img" class="img " src="images/main/u41.png"/>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u42" class="ax_default box_1">
-          <div id="u42_div" class=""></div>
-          <div id="u42_text" class="text ">
-            <p><span>Search</span></p>
-          </div>
+          <el-input placeholder="Search" v-model="searchQuery"></el-input>
         </div>
       </div>
 
@@ -189,10 +93,7 @@
 
         <!-- Unnamed (Rectangle) -->
         <div id="u48" class="ax_default box_1">
-          <img id="u48_img" class="img " src="images/main/u48.png"/>
-          <div id="u48_text" class="text ">
-            <p><span>E.g. Carrots</span></p>
-          </div>
+          <el-input placeholder="Name" v-model="productName"></el-input>
         </div>
 
         <!-- Unnamed (Rectangle) -->
@@ -205,50 +106,19 @@
 
         <!-- Unnamed (Rectangle) -->
         <div id="u50" class="ax_default box_1">
-          <img id="u50_img" class="img " src="images/main/u48.png"/>
-          <div id="u50_text" class="text ">
-            <p><span>Half a bag of carrots</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u51" class="ax_default box_3">
-          <div id="u51_div" class=""></div>
-          <div id="u51_text" class="text ">
-            <p><span style="font-family:'LucidaGrande-Bold', 'Lucida Grande Bold', 'Lucida Grande';">Product</span><span style="font-family:'CorsivaHebrew-Bold', 'Corsiva Hebrew Bold', 'Corsiva Hebrew';"> </span><span style="font-family:'LucidaGrande-Bold', 'Lucida Grande Bold', 'Lucida Grande';">Name</span></p>
-          </div>
-        </div>
-
-        <!-- Unnamed (Rectangle) -->
-        <div id="u52" class="ax_default box_3">
-          <div id="u52_div" class=""></div>
-          <div id="u52_text" class="text ">
-            <p><span style="font-family:'LucidaGrande-Bold', 'Lucida Grande Bold', 'Lucida Grande';">Product</span><span style="font-family:'CorsivaHebrew-Bold', 'Corsiva Hebrew Bold', 'Corsiva Hebrew';"> </span><span style="font-family:'LucidaGrande-Bold', 'Lucida Grande Bold', 'Lucida Grande';">Description</span></p>
-          </div>
+          <el-input placeholder="Description" v-model="productDescription"></el-input>
         </div>
 
         <!-- Unnamed (Rectangle) -->
         <div id="u53" class="ax_default box_1">
-          <img id="u53_img" class="img " src="images/main/u48.png"/>
-          <div id="u53_text" class="text ">
-            <p><span>10/11/2019</span></p>
-          </div>
+          <el-input placeholder="Expiration Date" v-model="productExpirationDate"></el-input>
         </div>
 
-        <!-- Unnamed (Rectangle) -->
-        <div id="u54" class="ax_default box_3">
-          <div id="u54_div" class=""></div>
-          <div id="u54_text" class="text ">
-            <p><span>Expiration Date</span></p>
-          </div>
-        </div>
+        
 
         <!-- Unnamed (Rectangle) -->
         <div id="u55" class="ax_default button">
-          <img id="u55_img" class="img " src="images/main/u55.png"/>
-          <div id="u55_text" class="text ">
-            <p><span>SUBMIT</span></p>
-          </div>
+           <el-button type="success" plain @click="open6"> Submit </el-button>
         </div>
 
         <!-- Unnamed (Horizontal Line) -->
@@ -285,25 +155,29 @@
 
         <!-- Unnamed (Rectangle) -->
         <div id="u62" class="ax_default box_1">
-          <img id="u62_img" class="img " src="images/main/u62.png"/>
+          <el-input placeholder="Category" v-model="searchCategory"></el-input>
         </div>
 
         <!-- Unnamed (Rectangle) -->
         <div id="u63" class="ax_default box_1">
-          <img id="u63_img" class="img " src="images/main/u62.png"/>
+          <el-input placeholder="Maximum distance" v-model="searchDistance"></el-input>
         </div>
 
         <!-- Unnamed (Rectangle) -->
         <div id="u64" class="ax_default box_1">
-          <img id="u64_img" class="img " src="images/main/u64.png"/>
+          <el-rate
+            v-model="value2"
+            :colors="colors">
+          </el-rate>
         </div>
 
         <!-- Unnamed (Rectangle) -->
         <div id="u65" class="ax_default box_1">
-          <img id="u65_img" class="img " src="images/main/u64.png"/>
-          <div id="u65_text" class="text ">
-            <p><span>10/11/2019</span></p>
-          </div>
+          <el-date-picker
+            v-model="value1"
+            type="date"
+            placeholder="Pick a day">
+          </el-date-picker>
         </div>
 
         <!-- Unnamed (Rectangle) -->
@@ -328,6 +202,7 @@
           <div id="u68_text" class="text ">
             <p><span>User Rating:</span></p>
           </div>
+          
         </div>
 
         <!-- Unnamed (Rectangle) -->
@@ -375,10 +250,7 @@
 
         <!-- Unnamed (Rectangle) -->
         <div id="u76" class="ax_default box_1">
-          <div id="u76_div" class=""></div>
-          <div id="u76_text" class="text ">
-            <p><span>Log Out</span></p>
-          </div>
+          <el-button type="danger" plain> Log Out </el-button>
         </div>
       </div>
 
@@ -463,14 +335,65 @@
           </div>
         </div>
       </div>
-
-      <!-- Unnamed (Dynamic Panel) -->
-      <div id="u89" class="ax_default">
-        <div id="u89_state0" class="panel_state" data-label="State1" style="">
-          <div id="u89_state0_content" class="panel_state_content">
-          </div>
-        </div>
-      </div>
     </div>
   </body>
-</html>
+</div>
+<script>
+  new Vue({
+        el: "#main",
+        data: {
+          searchQuery: '',
+          productName:'',
+          productDescription:'',
+          productExpirationDate: '',  
+          colors: ['#99A9BF', '#F7BA2A', '#FF9900']    
+        },
+        methods: {
+          open6() {
+            this.$notify({
+              title: 'Thanks!',
+              message: 'Your product is now avaliable to others',
+              type: 'success'
+            });
+          },
+        }
+  });
+        // Initialize the platform object:
+        var platform = new H.service.Platform({
+            app_id: 'ZYIQ5swtQDsRUwXTewup',
+            app_code: '6MYBmzItOKKLhzn2xaEz4g',
+            useHTTPS: true
+        });
+
+        // Obtain the default map types from the platform object
+        var pixelRatio = window.devicePixelRatio || 1;
+        var defaultLayers = platform.createDefaultLayers({
+            tileSize: pixelRatio === 1 ? 256 : 512,
+            ppi: pixelRatio === 1 ? undefined : 320
+        });
+        // Instantiate (and display) a map object:
+        var map = new H.Map(document.getElementById('u36_state0'),
+            defaultLayers.normal.map, {
+              center: { lng: 144.96, lat: -37.81 },
+              zoom: 14,
+              pixelRatio: pixelRatio
+        });
+  
+        // Create an icon, an object holding the latitude and longitude, and a marker:
+        var icon = new H.map.Icon('./images/main/u58.png'),
+            coords = {lat: -37.80, lng: 144.96},
+            marker = new H.map.Marker(coords, {icon: icon});
+
+        // MapEvents enables the event system
+        // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+        var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+        
+        // create default UI with layers provided by the platform
+        var ui = H.ui.UI.createDefault(map, defaultLayers);
+        
+        // Add the marker to the map and center the map at the location of the marker:
+        map.addObject(marker);
+        map.setCenter(coords);
+        addInfoBubble(map);
+    
+</script>

@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.6.1",
+    "element-ui": "^2.8.2",
     "express": "^4.16.4",
     "express-vue": "^5.8.2",
     "mongoose": "^5.5.0",
