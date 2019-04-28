@@ -141,7 +141,7 @@
         </div>
 
         <!-- Login Button -->
-        <div id="u18" class="ax_default button">
+        <div id="u18" class="ax_default button" @click="open6">
             <el-button type="success" plain> Log In </el-button>
         </div>
 
@@ -176,10 +176,13 @@
           password: ''
         },
         methods: {
-            changeTitle() {
-                this.title = this.title.toUpperCase();
-                return this.title;
-            }   
+            open6() {
+                this.$notify({
+                    title: 'Thanks!',
+                    message: 'Your product is now avaliable to others',
+                    type: 'success'
+                });
+            },  
         }
     });
 </script>

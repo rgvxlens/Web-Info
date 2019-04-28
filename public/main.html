@@ -118,7 +118,7 @@
 
         <!-- Unnamed (Rectangle) -->
         <div id="u55" class="ax_default button">
-           <el-button type="success" plain> Submit </el-button>
+           <el-button type="success" plain @click="open6"> Submit </el-button>
         </div>
 
         <!-- Unnamed (Horizontal Line) -->
@@ -349,10 +349,13 @@
           colors: ['#99A9BF', '#F7BA2A', '#FF9900']    
         },
         methods: {
-            changeTitle() {
-                this.title = this.title.toUpperCase();
-                return this.title;
-            }   
+          open6() {
+            this.$notify({
+              title: 'Thanks!',
+              message: 'Your product is now avaliable to others',
+              type: 'success'
+            });
+          },
         }
   });
         // Initialize the platform object:
