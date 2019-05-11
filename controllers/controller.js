@@ -11,26 +11,16 @@ app.use(bodyParser.json());
 /* For all the user's operation */
 // Create new user
 var createUser = function(req, res) {
+    console.log(req.body.User)
     var user = new User({
-        "createdAt":req.body.createdAt,
-        "userId":req.body.userId,
-        "name":req.body.name,
-        "email":req.body.email,
-        "password":req.body.password,
-        "phoneNumber":req.body.phoneNumber,
-        "userRating":req.body.userRating,
-        "streetAddress": {
-            "text":req.body.streetAddress.text,
-            "components": {
-              "street":req.body.streetAddress.components.street,
-                "number":req.body.streetAddress.components.number,
-                "city":req.body.streetAddress.components.city,
-                "area":req.body.streetAddress.components.area,
-                "country":req.body.streetAddress.components.country,
-                "postalCode":req.body.streetAddress.components.postalCode,
-                "building":req.body.streetAddress.components.building 
-            }
-        }
+        "name":req.body.User.name,
+        "firstName":req.body.User.firstName,
+        "lastName":req.body.User.lastName,
+        "email":req.body.User.email,
+        "password":req.body.User.password,
+        "phoneNumber":req.body.User.phoneNumber,
+        "streetAddress": req.body.User.streetAddress,
+        "userRating": 0
     });
     
     user.save(function(err, newUser) {
@@ -160,16 +150,20 @@ module.exports.deleteUserById = deleteUserById;
 /* For all the products operation */
 // Create new product
 var createProduct = function(req, res) {
+    console.log('Hello')
     var product = new Product(
         {
-            "userId":req.body.userId,
-            "createdAt":req.body.createdAt,
-            "name":req.body.name,
-            "description":req.body.description,
-            "expirationDate":req.body.expirationDate,
-            "category":req.body.category,
-            "condition":req.body.condition,
-            "rating":req.body.rating
+            "userId":req.body.Product.userId,
+            "createdAt":req.body.Product.createdAt,
+            "name":req.body.Product.name,
+            "description":req.body.Product.description,
+            "expirationDate":req.body.Product.expirationDate,
+            "category":req.body.Product.category,
+            "condition":req.body.Product.condition,
+            "rating":req.body.Product.rating,
+            "marker":req.body.Product.marker,
+            "address":req.body.Product.address,
+            "delivered":req.body.delivered
         }
     );
 
@@ -177,7 +171,6 @@ var createProduct = function(req, res) {
         if (!err) {
             res.send(newProduct);
         } else {
-            console.log("here");
             res.sendStatus(400);
         }
     });
@@ -235,6 +228,7 @@ var updateProductByName = function(req, res) {
         product.category = req.body.category;
         product.condition = req.body.condition;
         product.rating = req.body.rating;
+        product.delivered = req.body.delivered;
 
         product.save(function(err) {
             if (err)
@@ -253,7 +247,6 @@ var updateProductById = function(req, res) {
         if (err) {
             res.sendStatus(404);
         }
-       
         product.userId = req.body.userId;
         product.createdAt = req.body.createdAt;
         product.name = req.body.name;
@@ -262,7 +255,7 @@ var updateProductById = function(req, res) {
         product.category = req.body.category;
         product.condition = req.body.condition;
         product.rating = req.body.rating;
-
+        product.delivered = req.body.delivered;
         product.save(function(err) {
             if (err)
                 res.sendStatus(404);
@@ -285,6 +278,17 @@ var deleteProductById = function(req, res) {
     });
 };
 
+//Find one product by category
+var findProductByCategory = function(req, res) {
+    var productCategory = req.params.category;
+    Product.find({category:productCategory}, function(err, product) {
+        if (!err) {
+            res.send(product);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
 
 module.exports.createProduct = createProduct;
 module.exports.findAllProducts = findAllProducts;
@@ -293,7 +297,7 @@ module.exports.findProductByName = findProductByName;
 module.exports.updateProductById = updateProductById;
 module.exports.updateProductByName = updateProductByName;
 module.exports.deleteProductById = deleteProductById;
-
+module.exports.findProductByCategory = findProductByCategory;
 /* Restaurant's operations end here */
 /************************************/
 
