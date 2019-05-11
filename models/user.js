@@ -1,25 +1,14 @@
 var mongoose = require('mongoose');
 var userSchema = mongoose.Schema(
     {
-    	"createdAt":String,
-    	"userId":String,
-        "name":String,
-        "email":String,
-        "password":String,
-        "phoneNumber":String,
+        "name": { type: String, required: true },
+        "firstName": { type: String, required: true },
+        "lastName": { type: String, required: true },
+        "email": { type: String, required: true },
+        "password": { type: String, required: true },
+        "phoneNumber": { type: String, required: true }, 
         "userRating":Number,
-        "streetAddress": {
-        	"text":String,
-        	"components": {
-        		"street":String,
-        		"number":String,
-        		"city":String,
-        		"area":String,
-        		"country":String,
-        		"postalCode":String,
-        		"building":String
-        	}
-        }
+        "streetAddress": { type: String, required: true } 
     }
 );
 
