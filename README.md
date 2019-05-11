@@ -2,7 +2,7 @@
 
 Assignment 2: Mockup Application Server (Week 6)
 
-* [Kitchen2Kitchen on Heroku](https://kitchen2kitchen.herokuapp.com/) 
+* [Kitchen2Kitchen on Heroku](https://kitchen2kitchen.herokuapp.com/#/home) 
 * [Kitchen2Kitchen on Github](https://github.com/masonhsieh/Web-Info/tree/master/Project)
 
 
