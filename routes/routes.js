@@ -39,17 +39,20 @@ router.get('/products', controller.findAllProducts);
 // Find one product by id
 router.get('/products/id/:id', controller.findOneProduct);
  
-//Find one product by name
+// Find one product by name
 router.get('/products/name/:name', controller.findProductByName);
 
-//Update product's data by name
+// Update product's data by name
 router.put('/products/name/:name', controller.updateProductByName);
 
-//Update product's data by id
+// Update product's data by id
 router.put('/products/id/:id', controller.updateProductById);
 
-//Delete product by id
+// Delete product by id
 router.delete('/products/id/:id', controller.deleteProductById);
+
+// Find product from it's category
+router.get('/products/category/:category', controller.findProductByCategory);
 
 /* product's operations end here */
 /************************************/
