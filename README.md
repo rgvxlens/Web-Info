@@ -5,6 +5,7 @@
   <img width="67" height="67" src="https://raw.githubusercontent.com/rgvx/icons/master/restaurant%20%283%29.png">
 </p>
 <p align="center">Deliverable 4: Frontend + Backend delivery
+<br>
 
 * [Kitchen2Kitchen on Heroku](https://kitchen2kitchen.herokuapp.com/#/home)
 * [Kitchen2Kitchen on Github](https://github.com/masonhsieh/Web-Info/tree/master/Project)
@@ -12,6 +13,7 @@
 Please allow your browser to access your LOCATION for the map to load properly!
 ```
 </p>
+<br>
 
 ## Features
 
@@ -107,11 +109,196 @@ var users = mongoose.model('users', userSchema);
 #### Views
 * User login
 ```
-return axios.get(url).then(response => {
-	userPasswd = response.data.password
+submit () {
+	var userPasswd
+	var url = process.env.ROOT_API + 'users/name/' + this.User.name
+	var p = this.User.password
+	console.log(url)
+	function getNameList () {
+		return axios.get(url).then(response => {
+			userPasswd = response.data.password
+		})
+	}
+	getNameList().then(data => {
+		console.log(userPasswd)
+		if (userPasswd === p) {
+			console.log(data)
+			router.push({ name: 'main' })
+		}
+	})
+}
 ```
 * User sign-up
 ```
-axios.post(url, { User: this.User }).then(response => {
-	router.push({ name: 'login' })
+submit () {
+	console.log(this.User)
+	var url = process.env.ROOT_API + 'users'
+	axios.post(url, { User: this.User }).then(response => {
+		router.push({ name: 'login' })
+	}).catch(error => {
+		alert('Please enter the right information')
+		console.log('Add new user failed: ' + error)
+	})
+}
+```
+<br>
+<br>
+
+### Search and Filtering of Products
+#### Routes
+* Creating a new product
+```
+router.post('/products', controller.createProduct);
+```
+* Find all the products
+```
+router.get('/products', controller.findAllProducts);
+```
+* Find one product by id
+```
+router.get('/products/id/:id', controller.findOneProduct);
+```
+* Find one product by name
+```
+router.get('/products/name/:name',controller.findProductByName);
+```
+* Updating a product's data by name
+```
+router.put('/products/name/:name',controller.updateProductByName);
+```
+* Updating a product's data by id
+```
+router.put('/products/id/:id', controller.updateProductById);
+```
+* Deleting a product by id
+```
+router.delete('/products/id/:id',controller.deleteProductById);
+```
+* Finding a product from it's category
+```
+router.get('/products/category/:category',controller.findProductByCategory);
+```
+<br>
+
+#### Controllers
+* Creating a new product
+```
+createProduct
+```
+* Finding all the current products
+```
+findAllProducts
+```
+* Finding a product by id
+```
+findOneProduct
+```
+* Finding a product by its name
+```
+findProductByName
+```
+* Updating a product by its name
+```
+updateProductByName
+```
+* Updating a product by its id
+```
+updateProductById
+```
+* Finding a product by category
+```
+findProductByCategory
+```
+<br>
+
+#### Models
+#### product.js
+```
+const productSchema = new mongoose.Schema(
+{
+	"userId": String,
+	"createdAt": String,
+	"name": { type: String, required: true },
+	"description":String,
+	"expirationDate": { type: String, required: true },
+	"address": { type: String, required: true },
+	"marker": {
+		"lat": Number,
+		"lng": Number
+	},
+	"category": { type: String, required: true },
+	"condition": { type: Number, required: true },
+	"rating": Number,
+	"delivered": Boolean
+	}
+);
+var products = mongoose.model('products', productSchema);
+```
+<br>
+
+#### Views
+* Searching for a product via the filters
+```
+submit () {
+	var url = process.env.ROOT_API + 'products'
+	console.log(url)
+	axios.post(url, { Product: this.Product })
+	.catch(error => {
+		alert('Please fill all the information')
+		console.log('Add product failed: ' + error)
+	})
+}
+```
+
+* Showing all the products on the map (by default)
+``` 
+showProducts () {
+	this.clearMarkers()
+	var url = process.env.ROOT_API + 'products/'
+	function getProductFromName () {
+		return axios.get(url).then(response => {
+			return response.data
+		})
+	}
+	getProductFromName().then(data => {
+		for (let i = 0; i < data.length; i++) {
+			this.copyProductToMarkerList(data[i])
+		}
+	})
+}
+```
+
+* Searching a product by its name
+```
+function getProductFromName () {
+	return axios.get(url).then(response => {
+		return response.data
+	})
+}
+getProductFromName().then(data => {
+	console.log(data.length)
+	for (let i = 0; i < data.length; i++) {
+		if ((data[i].category === category || category === '') && data[i].condition >= condition) {
+			this.copyProductToMarkerList(data[i])
+			}
+		}
+	})
+}
+```
+
+* Seeing all the delivered products (in user's profile)
+```
+submit () {
+	var url = process.env.ROOT_API + 'products/'
+	axios.post(url, { Product: this.Product })
+	document.querySelector('.addProduct-modal').style.display = 'none'
+}
+```
+* Fetching products for the user's profile
+```
+getProducts () {
+	var url = process.env.ROOT_API + 'products/'
+	axios.get(url).then(response => (this.tableData = response.data))
+	console.log(this.tableData)
+}
 ```
