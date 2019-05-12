@@ -6,7 +6,7 @@
 </p>
 <p align="center">Deliverable 4: Frontend + Backend delivery
 
-* [Kitchen2Kitchen on Heroku](https://kitchen2kitchen.herokuapp.com/#/main)
+* [Kitchen2Kitchen on Heroku](https://kitchen2kitchen.herokuapp.com/#/home)
 * [Kitchen2Kitchen on Github](https://github.com/masonhsieh/Web-Info/tree/master/Project)
 ```
 Please allow your browser to access your LOCATION for the map to load properly!
