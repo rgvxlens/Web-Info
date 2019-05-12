@@ -107,7 +107,7 @@ var users = mongoose.model('users', userSchema);
 <br>
 
 #### Views
-* User login
+#### User login
 ```
 submit () {
 	var userPasswd
@@ -128,7 +128,7 @@ submit () {
 	})
 }
 ```
-* User sign-up
+#### User sign-up
 ```
 submit () {
 	console.log(this.User)
@@ -301,4 +301,70 @@ getProducts () {
 	axios.get(url).then(response => (this.tableData = response.data))
 	console.log(this.tableData)
 }
+```
+<br>
+<br>
+
+### Order-related features
+#### Routes
+* Creating a new order
+```
+router.post('/orders', controller.createOrder);
+```
+* Find all the orders
+```
+router.get('/orders', controller.findAllOrders);
+```
+* Find one order by its id
+```
+router.get('/orders/id/:id', controller.findOneOrder);
+```
+* Update data for a particular order by its id
+```
+router.put('/orders/id/:id', controller.updateOrderById);
+```
+* Delete an order by its id
+```
+router.delete('/orders/id/:id', controller.deleteOrderById);
+```
+<br>
+
+#### Controllers
+* Creating a new order
+ ```
+createOrder
+ ```
+ * Finding all the products
+ ```
+ findAllOrders
+ ```
+ * Finding a particular order by its id
+ ```
+ findOneOrder
+ ```
+ * Updating an order by its id
+ ```
+ updateOrderById
+ ```
+ * Deleting an order by its id
+ ```
+ deleteOrderById
+ ```
+ <br>
+
+#### Models
+#### order.js
+```
+const orderSchema = new mongoose.Schema(
+	{
+		"orderId":String,
+		"supplierId":String,
+		"recieverId":String,
+		"createdAt":String,
+		"supRating":String,
+		"recRating":String,
+		"productId":String,
+	}
+);
+var products = mongoose.model('orders', orderSchema);
 ```
