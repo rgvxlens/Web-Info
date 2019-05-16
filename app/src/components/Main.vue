@@ -105,7 +105,7 @@ import router from '../router'
 import GoogleMap from '../components/GoogleMap'
 
 export default {
-  name: 'Home',
+  name: 'Main',
   components: {
     GoogleMap
   },
@@ -136,6 +136,7 @@ export default {
         query: ''
       },
       Product: {
+        userId: this.$store.state.id,
         description: '',
         name: '',
         expirationDate: '',

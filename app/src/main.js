@@ -6,7 +6,11 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import * as VueGoogleMaps from 'vue2-google-maps'
+import Vuex from 'vuex'
 
+var VueCookie = require('vue-cookie')
+Vue.use(VueCookie)
+Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.use(VueGoogleMaps, {
@@ -16,10 +20,24 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
+const store = new Vuex.Store({
+  state: {
+    name: '',
+    id: ''
+  },
+  mutations: {
+    UpdateUser (name, id) {
+      this.state.name = name
+      this.state.id = id
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

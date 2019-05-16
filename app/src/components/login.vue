@@ -16,6 +16,7 @@
 import router from '../router'
 import axios from 'axios'
 export default {
+  name: 'login',
   data () {
     return {
       User: {
@@ -25,21 +26,24 @@ export default {
     }
   },
   methods: {
-    submit () {
-      var userPasswd
+    submit: function () {
+      var userPasswd, userName, userID
       var url = process.env.ROOT_API + 'users/name/' + this.User.name
       var p = this.User.password
-      console.log(url)
       function getNameList () {
         return axios.get(url).then(response => {
           userPasswd = response.data.password
+          userName = response.data.name
+          userID = response.data._id
         })
       }
       getNameList().then(data => {
-        console.log(userPasswd)
         if (userPasswd === p) {
-          console.log(data)
+          this.$store.state.name = userName
+          this.$store.state.id = userID
           router.push({ name: 'main' })
+        } else {
+          alert('Wrong username or password!')
         }
       })
     }

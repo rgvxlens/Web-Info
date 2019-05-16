@@ -91,15 +91,27 @@ export default {
     closeSignUp () {
       document.querySelector('.bg-modal').style.display = 'none'
     },
-    submit () {
-      console.log(this.User)
-      var url = process.env.ROOT_API + 'users'
-      axios.post(url, { User: this.User }).then(response => {
-        router.push({ name: 'login' })
+    validate (name) {
+      var url = process.env.ROOT_API + 'users/name/' + name
+      axios.get(url, { User: this.User }).then(response => {
+        if (response.data !== '') {
+          alert('Please enter another name')
+          return
+        }
+        var tempURL = process.env.ROOT_API + 'users'
+        axios.post(tempURL, { User: this.User }).then(response => {
+          router.push({ name: 'login' })
+        }).catch(error => {
+          alert('Please enter the right information')
+          console.log('Add new user failed: ' + error)
+        })
       }).catch(error => {
-        alert('Please enter the right information')
-        console.log('Add new user failed: ' + error)
+        alert('Please enter another name')
+        console.log(error)
       })
+    },
+    submit () {
+      this.validate(this.User.name)
     },
     logIn () {
       router.push({ name: 'login' })

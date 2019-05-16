@@ -13,8 +13,12 @@
     "nodemon": "^1.18.11"
   },
   "dependencies": {
+    "chai": "^4.2.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
-    "mongoose": "^5.5.4"
+    "mocha": "^6.1.4",
+    "mongoose": "^5.5.4",
+    "supertest": "^4.0.2",
+    "vue-cookie": "^1.1.4"
   }
 }
