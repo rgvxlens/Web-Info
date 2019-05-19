@@ -1,4 +1,4 @@
-!--https://alligator.io/vuejs/vue-google-maps/-->
+<!--https://alligator.io/vuejs/vue-google-maps/-->
 <template>
   <div>
     <gmap-map
@@ -123,7 +123,7 @@ export default {
       var url = process.env.ROOT_API + 'products/'
       if (queryName !== '') {
         url += 'name/' + queryName
-      } else if (category !== '') {
+      } else if (category !== '' && category !== 'All') {
         url += 'category/' + category
       }
       function getProductFromName () {
@@ -134,7 +134,7 @@ export default {
       getProductFromName().then(data => {
         console.log(data.length)
         for (let i = 0; i < data.length; i++) {
-          if ((data[i].category === category || category === '') && data[i].condition >= condition) {
+          if ((data[i].category === category || category === '' || category === 'All') && data[i].condition >= condition) {
             this.copyProductToMarkerList(data[i])
           }
         }
