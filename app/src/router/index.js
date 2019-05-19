@@ -6,13 +6,20 @@ import Profile from '@/components/Profile'
 import login from '@/components/login'
 Vue.use(Router)
 
-export default new Router({
+// export default new Router({
+const router = new Router({
   routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
     {
       path: '/home',
       name: 'home',
       component: Home
     },
+
     {
       path: '/main',
       name: 'main',
@@ -30,3 +37,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

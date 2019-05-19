@@ -129,6 +129,9 @@ export default {
       }, {
         value: 'Dairy',
         label: 'Dairy'
+      }, {
+        value: 'All',
+        label: 'All'
       }],
       Search: {
         category: '',
@@ -177,6 +180,8 @@ export default {
       this.$refs.map.addThisMarker(this.Product)
     },
     logOut () {
+      this.$store.state.name = ''
+      this.$store.state.id = ''
       router.push({ name: 'home' })
     },
     profile () {

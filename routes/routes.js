@@ -22,10 +22,10 @@ router.put('/users/name/:name', controller.updateUserByName);
 //Update user's data by id
 router.put('/users/id/:id', controller.updateUserById);
 
-//Delete user by id
+//Delete useMar by id
 router.delete('/users/id/:id', controller.deleteUserById);
 
-/* User's operations end here */
+/* User's operMaÿ3ations end here */
 /******************************/
 
 /***************************************/
@@ -53,6 +53,12 @@ router.delete('/products/id/:id', controller.deleteProductById);
 
 // Find product from it's category
 router.get('/products/category/:category', controller.findProductByCategory);
+
+// Find product from it's userId(owner)
+router.get('/products/userId/:userId', controller.findProductByUserId);
+
+// Change the deliver status on product
+router.put('products/id/:id/change_delivered_status', controller.changeProductStatusById);
 
 /* product's operations end here */
 /************************************/

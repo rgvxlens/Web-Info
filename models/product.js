@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 const productSchema = new mongoose.Schema(
     {
         "userId": String,
+        "receiverName": String,
         "createdAt": String,
         "name":  { type: String, required: true },     
         "description":String,

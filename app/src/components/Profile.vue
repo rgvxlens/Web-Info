@@ -180,6 +180,7 @@ export default {
         query: ''
       },
       Product: {
+        userId: '',
         description: '',
         name: '',
         expirationDate: '',
@@ -216,6 +217,8 @@ export default {
       document.querySelector('.addProduct-modal').style.display = 'none'
     },
     logOut () {
+      this.$store.state.name = ''
+      this.$store.state.id = ''
       router.push({ name: 'home' })
     },
     main () {

@@ -154,6 +154,7 @@ var createProduct = function(req, res) {
     var product = new Product(
         {
             "userId":req.body.Product.userId,
+            "receiverName": req.body.Product.receiverName,
             "createdAt":req.body.Product.createdAt,
             "name":req.body.Product.name,
             "description":req.body.Product.description,
@@ -221,6 +222,7 @@ var updateProductByName = function(req, res) {
         }
         
         product.userId = req.body.userId;
+        product.receiverName = req.body.receiverName;
         product.createdAt = req.body.createdAt;
         product.name = req.body.name;
         product.description = req.body.description;
@@ -248,6 +250,7 @@ var updateProductById = function(req, res) {
             res.sendStatus(404);
         }
         product.userId = req.body.userId;
+        product.receiverName = req.body.receiverName;
         product.createdAt = req.body.createdAt;
         product.name = req.body.name;
         product.description = req.body.description;
@@ -290,6 +293,33 @@ var findProductByCategory = function(req, res) {
     });
 };
 
+//Find one product by a specific userId
+var findProductByUserId = function(req, res) {
+    var productUserId = req.params.userId;
+    Product.find({userId:productUserId}, function(err, product) {
+        if (!err) {
+            res.send(product);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
+
+//Update product's deliver status by id
+var changeProductStatusById = function(req, res) {
+    Product.findById(req.params.id, function(err, product) {
+        if (err) {
+            res.sendStatus(404);
+        }
+        product.delivered = !(product.delivered);
+        product.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+            res.send(product);
+        });
+    });
+};
+
 module.exports.createProduct = createProduct;
 module.exports.findAllProducts = findAllProducts;
 module.exports.findOneProduct = findOneProduct;
@@ -298,7 +328,9 @@ module.exports.updateProductById = updateProductById;
 module.exports.updateProductByName = updateProductByName;
 module.exports.deleteProductById = deleteProductById;
 module.exports.findProductByCategory = findProductByCategory;
-/* Restaurant's operations end here */
+module.exports.findProductByUserId = findProductByUserId;
+module.exports.changeProductStatusById = changeProductStatusById;
+/* Product's operations end here */
 /************************************/
 
 /***************************************/
