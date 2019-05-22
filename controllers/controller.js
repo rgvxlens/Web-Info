@@ -305,13 +305,15 @@ var findProductByUserId = function(req, res) {
     });
 };
 
-//Update product's deliver status by id
+//Update product's deliver status by product id and update the receiver
 var changeProductStatusById = function(req, res) {
+    var receiver_name = req.params.receiverName;
     Product.findById(req.params.id, function(err, product) {
         if (err) {
             res.sendStatus(404);
         }
         product.delivered = !(product.delivered);
+        product.receiverName = receciver_name;
         product.save(function(err) {
             if (err)
                 res.sendStatus(404);
@@ -319,6 +321,18 @@ var changeProductStatusById = function(req, res) {
         });
     });
 };
+
+// Find product from the receiver's name
+var findProductByReceiverName = function(req, res) {
+    var receiver_name = req.params.receiverName;
+    Product.find({receiverName:receiver_name}, function(err, product) {
+        if (!err) {
+            res.send(product);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+}; 
 
 module.exports.createProduct = createProduct;
 module.exports.findAllProducts = findAllProducts;
@@ -330,6 +344,7 @@ module.exports.deleteProductById = deleteProductById;
 module.exports.findProductByCategory = findProductByCategory;
 module.exports.findProductByUserId = findProductByUserId;
 module.exports.changeProductStatusById = changeProductStatusById;
+module.exports.findProductByReceiverName = findProductByReceiverName;
 /* Product's operations end here */
 /************************************/
 
