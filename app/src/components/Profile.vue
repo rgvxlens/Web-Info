@@ -41,8 +41,53 @@
       <el-table
         class="table"
         :data="tableData"
-        :row-class-name="tableRowClassName">
-        style="width: 100%">
+        :row-class-name="tableRowClassName"
+        height="300">
+        <el-table-column
+          fixed
+          prop="name"
+          label="Name"
+          width="150">
+        </el-table-column>
+        <el-table-column
+          prop="description"
+          label="Description"
+          width="300">
+        </el-table-column>
+        <el-table-column
+          prop="expirationDate"
+          label="Expiry Date"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="category"
+          label="Category"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="condition"
+          label="Condition"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          prop="rating"
+          label="Rating"
+          width="120">
+        </el-table-column>
+        <el-table-column
+          fixed="right"
+          label="Delivered"
+          width="120">
+          <template slot-scope="scope">
+            <el-button @click="deliver(scope.$index, tableData)" :type="delivered(scope.$index, tableData)" icon="el-icon-check" circle></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-table
+        class="table"
+        :data="orderData"
+        :row-class-name="tableRowClassName"
+        height="300">
         <el-table-column
           fixed
           prop="name"
@@ -158,6 +203,8 @@ export default {
       errors: [],
       value5: '',
       tableData: [],
+      // Store order data in this
+      orderData: [],
       options: [{
         value: 'Fruit',
         label: 'Fruit'
@@ -239,7 +286,11 @@ export default {
     getProducts () {
       var url = process.env.ROOT_API + 'products/'
       axios.get(url).then(response => (this.tableData = response.data))
-      console.log(this.tableData)
+    },
+    // MAKE THIS GET ORDERS OR SOMETHING
+    getOrders () {
+      var url = process.env.ROOT_API + 'products/'
+      axios.get(url).then(response => (this.tableData = response.data))
     },
     deliver (index, rows) {
       rows[index].delivered = !rows[index].delivered
@@ -419,10 +470,10 @@ export default {
     padding-top: 30px;
   }
   .tableContent {
-    padding-left: 20%;
-    padding-right: 20%;
-    width: 60%;
-    height: 80%;
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 80%;
+    height: 40%;
   }
   .el-table .warning-row {
     background: white;
