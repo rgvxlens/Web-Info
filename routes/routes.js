@@ -51,14 +51,19 @@ router.put('/products/id/:id', controller.updateProductById);
 // Delete product by id
 router.delete('/products/id/:id', controller.deleteProductById);
 
-// Find product from it's category
+// Find productt from it's category
 router.get('/products/category/:category', controller.findProductByCategory);
 
 // Find product from it's userId(owner)
 router.get('/products/userId/:userId', controller.findProductByUserId);
 
-// Change the deliver status on product
-router.put('products/id/:id/change_delivered_status', controller.changeProductStatusById);
+// Change the deliver status by product's id
+router.put('products/id/:id/receiver/:receiverName/change_delivered_status', controller.changeProductStatusById);
+
+// Find product from the receiver's name
+router.get('products/receiver/:receiverName/', controller.findProductByReceiverName);
+
+
 
 /* product's operations end here */
 /************************************/
