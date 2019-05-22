@@ -5,9 +5,9 @@
             :src="'https://i.ibb.co/9hBzZQj/k2kSmall.png'">
           </el-image></h2>
           <p> Login </p>
-    <form @submit.prevent="login" style="width: 600px; height: 75px; margin-left:450px">
-       <el-input class="input-field" placeholder="Username" v-model="User.name"></el-input>
-       <el-input class="input-field" placeholder="password" v-model="User.password" show-password></el-input>
+    <form @submit.prevent="login" style="width: 40%; margin: 0 auto; height: 75px;">
+       <el-input class="input-field" placeholder="Username" v-model="User.name" style="display: block; height: 75px;"></el-input>
+       <el-input class="input-field" placeholder="password" v-model="User.password" show-password style="display: block; height: 75px; "></el-input>
       <el-button @click="submit" style="background-color:#5daf34; color:#FFF"> Submit </el-button>
     </form>
   </div>
