@@ -2,7 +2,10 @@
   <div class="pg">
     <el-row class="top">
       <el-row class="logo">
-        LOGO
+        <el-image
+            style="width: 150px; height: 75px;"
+            :src="'https://i.ibb.co/9hBzZQj/k2kSmall.png'">
+        </el-image>
       </el-row >
       <el-col :span="8">
         <i class="el-icon-s-unfold hamburg" @click="openMenu"></i>
@@ -140,6 +143,8 @@ export default {
       },
       Product: {
         userId: this.$store.state.id,
+        phoneNumber: this.$store.state.phoneNumber,
+        receiverName: '',
         description: '',
         name: '',
         expirationDate: '',
@@ -294,7 +299,7 @@ export default {
   }
   .logo {
     top: 0;
-    height: 20px;
+    height: 75px;
   }
   .headerRow {
     margin: -20px -10px -10px -10px;

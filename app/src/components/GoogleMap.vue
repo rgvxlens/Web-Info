@@ -89,7 +89,8 @@ export default {
         category: product.category,
         condition: product.condition,
         address: product.address,
-        name: product.name
+        name: product.name,
+        phoneNumber: product.phoneNumber
       }
       this.markers.push({ position: marker })
     },
@@ -168,7 +169,7 @@ export default {
       // Check the marker.position.userId with the cookies userId here
       return ('<div>' + 'Product Description' + '<br>' + marker.position.name + '<br>' + marker.position.category + '<br>' +
         'description: ' + marker.position.description + '<br>' + 'condition: ' + marker.position.condition + '<br>' +
-        marker.position.expirationDate + '<br>' + marker.position.address + '<div>')
+        marker.position.expirationDate + '<br>' + marker.position.address + '<br>' + marker.position.phoneNumber + '<div>')
     }
   }
 }

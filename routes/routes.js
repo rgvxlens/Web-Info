@@ -22,6 +22,9 @@ router.put('/users/name/:name', controller.updateUserByName);
 //Update user's data by id
 router.put('/users/id/:id', controller.updateUserById);
 
+//Update the user's rating based on the user's id
+router.put('/users/id/:id/userRating/:userRating', controller.updateRatingById);
+
 //Delete useMar by id
 router.delete('/users/id/:id', controller.deleteUserById);
 
@@ -58,7 +61,7 @@ router.get('/products/category/:category', controller.findProductByCategory);
 router.get('/products/userId/:userId', controller.findProductByUserId);
 
 // Change the deliver status by product's id
-router.put('products/id/:id/receiver/:receiverName/change_delivered_status', controller.changeProductStatusById);
+router.put('products/change_delivered_status/id/:id', controller.changeProductStatusById);
 
 // Find product from the receiver's name
 router.get('products/receiver/:receiverName/', controller.findProductByReceiverName);

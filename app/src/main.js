@@ -23,12 +23,14 @@ Vue.use(VueGoogleMaps, {
 const store = new Vuex.Store({
   state: {
     name: '',
-    id: ''
+    id: '',
+    phoneNumber: ''
   },
   mutations: {
-    UpdateUser (name, id) {
+    UpdateUser (name, id, phoneNumber) {
       this.state.name = name
       this.state.id = id
+      this.phoneNumber = phoneNumber
     }
   }
 })

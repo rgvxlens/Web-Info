@@ -2,7 +2,10 @@
   <div class="pg">
     <el-row class="top">
       <el-row class="logo">
-        LOGO
+        <el-image
+            style="width: 150px; height: 75px;"
+            :src="'https://i.ibb.co/9hBzZQj/k2kSmall.png'">
+        </el-image>
       </el-row >
       <el-col :span="8">
         <i class="el-icon-s-unfold hamburg" @click="openMenu"></i>
@@ -227,7 +230,10 @@ export default {
         query: ''
       },
       Product: {
+        _id: '',
         userId: '',
+        receiverName: '',
+        phoneNumber: '',
         description: '',
         name: '',
         expirationDate: '',
@@ -266,6 +272,7 @@ export default {
     logOut () {
       this.$store.state.name = ''
       this.$store.state.id = ''
+      this.$store.state.phoneNumber = ''
       router.push({ name: 'home' })
     },
     main () {
@@ -283,22 +290,42 @@ export default {
       // Search Query code in here, leave the line below at the bottom :)
       document.querySelector('.searchBar').style.display = 'none'
     },
+    // Get this user's product list, in other words, this user owns these products
+    // The user should be able to change the deliver status of the product and add the receiver name to the product
     getProducts () {
-      var url = process.env.ROOT_API + 'products/'
+      // var url = process.env.ROOT_API + 'products/'
+      // axios.get(url).then(response => (this.tableData = response.data))
+      var url = process.env.ROOT_API + 'products/userId/' + this.$store.state.id
       axios.get(url).then(response => (this.tableData = response.data))
     },
     // MAKE THIS GET ORDERS OR SOMETHING
+    // The user ordered these products from other owners.
+    // The user should be able to provide the rating (1 to 5) back to the owner.
     getOrders () {
-      var url = process.env.ROOT_API + 'products/'
+      // var url = process.env.ROOT_API + 'products/'
+      // axios.get(url).then(response => (this.tableData = response.data))
+      var url = process.env.ROOT_API + 'products/receiver/' + this.$store.state.name
       axios.get(url).then(response => (this.tableData = response.data))
     },
+    // Update the deliver status of this product
     deliver (index, rows) {
       rows[index].delivered = !rows[index].delivered
-      var url = process.env.ROOT_API + 'products/name/'
-      axios.put(url + rows[index].name, rows[index])
+      // Now just set the receiverName is masonTest123
+      rows[index].receiverName = 'masonTest123'
+      var url = process.env.ROOT_API + 'products/id/'
+      axios.put(url + rows[index]._id, rows[index])
+    },
+    // The 'customer' could rate(feedback) the owner's product
+    // Noted: customer can only rate it once
+    // The PUT method doesn't read any input ======< haven't test this functionality yet.
+    rate (index, rows) {
+      var ownerId = rows[index].useId
+      // should read the rating somewhere, in this case, user rate it as 4
+      var rating = 4
+      var url = process.env.ROOT_API + '/users/id/' + ownerId + '/userRating/' + rating
+      axios.put(url)
     },
     tableRowClassName ({row, rowIndex}) {
-      console.log(row)
       if (row.delivered) {
         return 'warning-row'
       } else {
@@ -406,7 +433,7 @@ export default {
   }
   .logo {
     top: 0;
-    height: 20px;
+    height: 75px;
   }
   .headerRow {
     margin: -20px -10px -10px -10px;

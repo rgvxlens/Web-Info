@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     submit: function () {
-      var userPasswd, userName, userID
+      var userPasswd, userName, userID, userPhoneNumber
       var url = process.env.ROOT_API + 'users/name/' + this.User.name
       var p = this.User.password
       function getNameList () {
@@ -35,12 +35,14 @@ export default {
           userPasswd = response.data.password
           userName = response.data.name
           userID = response.data._id
+          userPhoneNumber = response.data.phoneNumber
         })
       }
       getNameList().then(data => {
         if (userPasswd === p) {
           this.$store.state.name = userName
           this.$store.state.id = userID
+          this.$store.state.phoneNumber = userPhoneNumber
           router.push({ name: 'main' })
         } else {
           alert('Wrong username or password!')

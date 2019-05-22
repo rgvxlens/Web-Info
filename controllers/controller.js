@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 /* For all the user's operation */
 // Create new user
 var createUser = function(req, res) {
-    console.log(req.body.User)
     var user = new User({
         "name":req.body.User.name,
         "firstName":req.body.User.firstName,
@@ -20,7 +19,9 @@ var createUser = function(req, res) {
         "password":req.body.User.password,
         "phoneNumber":req.body.User.phoneNumber,
         "streetAddress": req.body.User.streetAddress,
-        "userRating": 0
+        "userRating": 0,
+        "numOrders": 0,
+        "Scores": 0
     });
     
     user.save(function(err, newUser) {
@@ -85,7 +86,7 @@ var updateUserByName = function(req, res) {
         user.userRating = req.body.userRating;
         user.streetAddress.text = req.body.streetAddress.text;
         user.streetAddress.components = req.body.streetAddress.components;
-        
+
         user.save(function(err) {
             if (err)
                 res.sendStatus(404);
@@ -112,7 +113,6 @@ var updateUserById = function(req, res) {
         user.userRating = req.body.userRating;
         user.streetAddress.text = req.body.streetAddress.text;
         user.streetAddress.components = req.body.streetAddress.components;
-        
         user.save(function(err) {
             if (err)
                 res.sendStatus(404);
@@ -122,6 +122,24 @@ var updateUserById = function(req, res) {
     });
 };
 
+//Update the user's rating based on the user's id
+var updateRatingById = function(req, res) {
+    User.findById(req.params.id, function(err, user) {
+        if (err) {
+            res.sendStatus(404);
+        }
+        user.numOrders = user.numOrders + 1;
+        user.Scores = user.Scores + req.params.userRating;
+        user.userRating = (user.Scores / user.numOrders);
+        
+        user.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+
+            res.send(user);
+        });
+    });
+};
 
 //Delete user by id
 var deleteUserById = function(req, res) {
@@ -143,6 +161,7 @@ module.exports.findUserByName = findUserByName;
 module.exports.updateUserById = updateUserById;
 module.exports.updateUserByName = updateUserByName;
 module.exports.deleteUserById = deleteUserById;
+module.exports.updateRatingById = updateRatingById;
 /* User's operations end here */
 /******************************/
 
@@ -150,11 +169,11 @@ module.exports.deleteUserById = deleteUserById;
 /* For all the products operation */
 // Create new product
 var createProduct = function(req, res) {
-    console.log('Hello')
     var product = new Product(
         {
             "userId":req.body.Product.userId,
             "receiverName": req.body.Product.receiverName,
+            "phoneNumber": req.body.Product.phoneNumber,
             "createdAt":req.body.Product.createdAt,
             "name":req.body.Product.name,
             "description":req.body.Product.description,
@@ -231,6 +250,7 @@ var updateProductByName = function(req, res) {
         product.condition = req.body.condition;
         product.rating = req.body.rating;
         product.delivered = req.body.delivered;
+        product.phoneNumber = req.body.phoneNumber;
 
         product.save(function(err) {
             if (err)
@@ -259,6 +279,7 @@ var updateProductById = function(req, res) {
         product.condition = req.body.condition;
         product.rating = req.body.rating;
         product.delivered = req.body.delivered;
+        product.phoneNumber = req.body.phoneNumber;
         product.save(function(err) {
             if (err)
                 res.sendStatus(404);
@@ -307,16 +328,16 @@ var findProductByUserId = function(req, res) {
 
 //Update product's deliver status by product id and update the receiver
 var changeProductStatusById = function(req, res) {
-    var receiver_name = req.params.receiverName;
     Product.findById(req.params.id, function(err, product) {
         if (err) {
             res.sendStatus(404);
         }
-        product.delivered = !(product.delivered);
-        product.receiverName = receciver_name;
+        product.delivered = req.body.delivered;
+        product.receiverName = req.body.receiverName;
         product.save(function(err) {
             if (err)
                 res.sendStatus(404);
+
             res.send(product);
         });
     });

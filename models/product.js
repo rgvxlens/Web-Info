@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema(
     {
         "userId": String,
         "receiverName": String,
+        "phoneNumber": String,
         "createdAt": String,
         "name":  { type: String, required: true },     
         "description":String,
