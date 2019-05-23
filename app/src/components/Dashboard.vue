@@ -11,164 +11,27 @@
         <i class="el-icon-s-unfold hamburg" @click="openMenu"></i>
       </el-col>
       <el-col :span="8">
-        <div>
-          <h3> PRODUCTS </h3>
-        </div>
       </el-col>
       <el-col :span="8">
       </el-col>
     </el-row>
-    <div class="searchBar">
-      <el-row class="searchRow">
-        <el-col :span="4" :offset="6">
-          <div class="inputLabel"> category </div>
-          <el-select size="mini" v-model="Search.category" placeholder="Select">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-col>
-        <el-col class="searchCondition" :span="4">
-          <div class="inputLabel"> condition </div>
-          <el-rate v-model="Search.condition"></el-rate>
-        </el-col>
-        <el-col class="searchButton" :span="4">
-           <el-button @click="search"> Search </el-button>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="tableContent">
-      <el-table
-        class="table"
-        :data="tableData"
-        :row-class-name="tableRowClassName"
-        height="300">
-        <el-table-column
-          fixed
-          prop="name"
-          label="Name"
-          width="150">
-        </el-table-column>
-        <el-table-column
-          prop="description"
-          label="Description"
-          width="300">
-        </el-table-column>
-        <el-table-column
-          prop="expirationDate"
-          label="Expiry Date"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="category"
-          label="Category"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="condition"
-          label="Condition"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="rating"
-          label="Rating"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          fixed="right"
-          label="Delivered"
-          width="120">
-          <template slot-scope="scope">
-            <el-button @click="deliver(scope.$index, tableData)" :type="delivered(scope.$index, tableData)" icon="el-icon-check" circle></el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-table
-        class="table"
-        :data="orderData"
-        :row-class-name="tableRowClassName"
-        height="300">
-        <el-table-column
-          fixed
-          prop="name"
-          label="Name"
-          width="150">
-        </el-table-column>
-        <el-table-column
-          prop="description"
-          label="Description"
-          width="300">
-        </el-table-column>
-        <el-table-column
-          prop="expirationDate"
-          label="Expiry Date"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="category"
-          label="Category"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="condition"
-          label="Condition"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="rating"
-          label="Rating"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          fixed="right"
-          label="Delivered"
-          width="120">
-          <template slot-scope="scope">
-            <el-button @click="deliver(scope.$index, tableData)" :type="delivered(scope.$index, tableData)" icon="el-icon-check" circle></el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <div class="addProduct-modal">
-      <div class="addProduct-content">
-        <i class="el-icon-close closeSubmit" @click="closeAddProduct"></i>
-        <h2> Add Product </h2>
-        <el-input class="input-field" placeholder="Name" v-model="Product.name">
-        </el-input>
-        <el-input class="input-field" placeholder="Description" v-model="Product.description">
-        </el-input>
-        <div class="input-field">
-          <gmap-autocomplete
-            class="please el-input input-field"
-            @place_changed="setPlace">
-          </gmap-autocomplete>
-        </div>
-        <el-select class="category" v-model="Product.category" placeholder="Category">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-        <el-date-picker
-          class="input-field"
-          v-model="Product.expirationDate"
-          type="date"
-          placeholder="Pick an expiry date">
-        </el-date-picker>
-        <el-row>
-          <div class="conditionLabel"> Condition: </div>
-          <el-rate class="conditionLabel" v-model="Product.condition">
-          </el-rate>
+    <div class="dashboard">
+        <el-row class="statrow">
+          <h1> Suburb Rank: </h1>
+          <h2 class="stat"> #1 </h2>
         </el-row>
-        <el-row>
-          <el-button class="input-field" @click="submit"> Submit </el-button>
+        <el-row class="statrow">
+          <h1> User Rank: </h1>
+          <h2 class="stat"> #3 </h2>
         </el-row>
-      </div>
+        <el-row class="statrow">
+          <h1> Number of Orders: </h1>
+          <h2 class="stat"> #12 </h2>
+        </el-row>
+        <el-row class="statrow">
+          <h1> Top User: </h1>
+          <h2 class="stat"> John Appleseed </h2>
+        </el-row>
     </div>
     <div class="menu-modal">
       <div class="addProduct-content">
@@ -179,7 +42,7 @@
             <div> Main </div>
           </el-row>
           <el-row>
-            <i class="el-icon-odometer"></i>
+            <i @click="dashboard" class="el-icon-odometer"></i>
             <div> Dashboard </div>
           </el-row>
           <el-button class="input-field" @click="logOut"> Log out </el-button>
@@ -277,6 +140,9 @@ export default {
     },
     main () {
       router.push({ name: 'main' })
+    },
+    dashboard () {
+      router.push({ name: 'dashboard' })
     },
     setPlace (place) {
       const marker = {
@@ -512,5 +378,15 @@ export default {
   }
   .table {
     height: 100%;
+  }
+  .dashboard {
+    padding-top: 20px;
+  }
+  .statrow {
+    padding-top: 0px;
+    margin-bottom: 0px;
+  }
+  .stat {
+    color: green;
   }
 </style>

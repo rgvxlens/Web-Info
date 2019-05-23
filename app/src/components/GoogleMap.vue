@@ -133,7 +133,6 @@ export default {
         })
       }
       getProductFromName().then(data => {
-        console.log(data.length)
         for (let i = 0; i < data.length; i++) {
           if ((data[i].category === category || category === '' || category === 'All') && data[i].condition >= condition) {
             this.copyProductToMarkerList(data[i])
@@ -164,13 +163,23 @@ export default {
         this.currentMidx = idx
       }
     },
+    reserve () {
+      console.log('here')
+    },
     /* Set up the marker information here. As we pass the product info in the marker.position, we have to reference it by marker.position.$item */
     getInfoWindowContent: function (marker) {
       // Check the marker.position.userId with the cookies userId here
       return ('<div>' + 'Product Description' + '<br>' + marker.position.name + '<br>' + marker.position.category + '<br>' +
         'description: ' + marker.position.description + '<br>' + 'condition: ' + marker.position.condition + '<br>' +
-        marker.position.expirationDate + '<br>' + marker.position.address + '<br>' + marker.position.phoneNumber + '<div>')
+        marker.position.expirationDate + '<br>' + marker.position.address + '<br>' + marker.position.phoneNumber + '<div @click="reserve" class="no" id="contact">' + '<h2>' + 'Reserve Product' + '</h2>' + '</div>')
     }
   }
 }
 </script>
+<style>
+  .no {
+    color: green;
+    cursor: pointer;
+  }
+
+</style>

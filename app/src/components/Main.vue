@@ -92,7 +92,7 @@
             <div> Profile </div>
           </el-row>
           <el-row>
-            <i class="el-icon-odometer"></i>
+            <i @click="dashboard" class="el-icon-odometer"></i>
             <div> Dashboard </div>
           </el-row>
           <el-button class="input-field" @click="logOut"> Log out </el-button>
@@ -183,6 +183,9 @@ export default {
         })
       document.querySelector('.addProduct-modal').style.display = 'none'
       this.$refs.map.addThisMarker(this.Product)
+    },
+    dashboard () {
+      router.push({ name: 'dashboard' })
     },
     logOut () {
       this.$store.state.name = ''
@@ -312,6 +315,7 @@ export default {
     max-width: 100%;
   }
   .top {
+    min-height: 100px;
     height: 12%;
     margin-bottom: 16px;
   }
@@ -331,6 +335,7 @@ export default {
     height: 5%;
   }
   .searchBar {
+    width: 100%;
     height: 12%;
     display: none;
   }
