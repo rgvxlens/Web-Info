@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import Main from '@/components/Main'
 import Profile from '@/components/Profile'
 import login from '@/components/login'
+import Dashboard from '@/components/Dashboard'
 Vue.use(Router)
 
 // export default new Router({
@@ -34,6 +35,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
     }
   ]
 })
