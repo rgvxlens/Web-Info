@@ -22,19 +22,28 @@
       <el-row >
         <el-col :push=7 :span="5">
           <div class="grid-content intro-text">
-            Food Safety
+            <div> Food Safety </div>
+            <div> Its to be understood when using our platform we are focusing on the benefits of community,
+            and thus asking for you to do your best to support it.
+            You can do this by only adding products that you know are safe,
+            and being prepared to inspect products your receive.</div>
           </div>
         </el-col>
         <el-col :push=7 :span="5">
           <div class="grid-content intro-text">
-            Community Benefits
+            <div> Community Benefits </div>
+            <div> We are aiming to reduce food waste in your community,
+            this has great benefits to the community as it allows further interaction within
+            the community and allows for a quantifible difference to be made.
+             In addition you can see how your community ranks against others! </div>
           </div>
         </el-col>
       </el-row>
       <el-row>
         <el-col :push=7 :span="10">
           <div class="grid-content intro-text">
-            Start Contributing
+            <div> Start Contributing </div>
+            <div> Join the movement now, sign up to get started. Once signed up its as simple as adding the food items around the house you no longer need and wait to be contacted by a potential suiter. </div>
             <div class="home-button">
               <el-button type="success" class="home-button" @click="signUp"> Sign Up </el-button>
             </div>
@@ -45,7 +54,7 @@
     <div class="bg-modal">
       <div class="modal-content">
         <i class="el-icon-close closeSubmit" @click="closeSignUp"></i>
-        <h2> Sign Up </h2>
+        <h2 class="heading"> Sign Up </h2>
         <el-input class="input-field" placeholder="Username" v-model="User.name"></el-input>
         <el-input class="input-field" placeholder="First name" v-model="User.firstName"></el-input>
         <el-input class="input-field" placeholder="Last name" v-model="User.lastName"></el-input>
@@ -135,21 +144,15 @@ export default {
   .bg-purple {
     background: #d3dce6;
   }
-  .bg-purple-light {
-    background: #e5e9f2;
-  }
   .grid-content {
     border-radius: 4px;
     min-height: 46px;
-  }
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
   }
   .text {
     padding: 80px;
   }
   .intro-text {
+    padding: 10px 10px 10px 10px;
     margin-right: 10px;
     min-height: 200px;
     background-color: #d3dce6;
@@ -169,18 +172,11 @@ export default {
     display: none;
   }
   .modal-content {
-    padding: 40px 40px 40px 40px;
+    padding: 40px 40px 120px 40px;
     width: 800px;
     height: 500px;
     background-color: white;
     border-radius: 18px;
-  }
-  .close {
-    postition: absolute;
-    top: 0;
-    right: 14px;
-    font-size: 42px;
-    transform: rotate(45deg);
   }
   .closeSubmit {
     float: right;
@@ -189,6 +185,10 @@ export default {
     padding: 10px 10px 10px 10px;
   }
   .logIn {
+    padding-top: 20px;
     float: right;
+  }
+  .heading {
+    color: green;
   }
 </style>

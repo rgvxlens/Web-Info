@@ -1,14 +1,13 @@
 <template>
-  <div style="margin-top:130px;">
-    <h2><el-image
-            style="width: 150px; height: 75px;"
-            :src="'https://i.ibb.co/9hBzZQj/k2kSmall.png'">
-          </el-image></h2>
-          <p> Login </p>
-    <form @submit.prevent="login" style="width: 40%; margin: 0 auto; height: 75px;">
-       <el-input class="input-field" placeholder="Username" v-model="User.name" style="display: block; height: 75px;"></el-input>
-       <el-input class="input-field" placeholder="password" v-model="User.password" show-password style="display: block; height: 75px; "></el-input>
-      <el-button @click="submit" style="background-color:#5daf34; color:#FFF"> Submit </el-button>
+  <div class="loginPage">
+    <el-image
+      class = "logoLogin"
+      :src="'https://i.ibb.co/9hBzZQj/k2kSmall.png'">
+    </el-image>
+    <form class="loginForm" @submit.prevent="login">
+       <el-input class="input-field" placeholder="Username" v-model="User.name"></el-input>
+       <el-input class="input-field" placeholder="Password" v-model="User.password" show-password></el-input>
+      <el-button @click="submit"  type="success"> Submit </el-button>
     </form>
   </div>
 </template>
@@ -53,20 +52,23 @@ export default {
 }
 </script>
 <style>
-.error {
-  color: red;
-}
-.login {
-    float: right;
+  .loginPage {
+    position: relative;
+    padding-top: 30vh;
   }
-p {
-  text-align: center;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 1.1em;
-  font-family: Heiti SC;
+  .error {
+    color: red;
   }
-  .login1{
-    margin-top:500px;
+  .loginForm {
+    width: 30%;
+    margin: 0 auto;
+    height: 75px;
+  }
+  .logoLogin{
+    width: 150px;
+    height: 75px;
+  }
+  .input-field {
+    padding: 5px;
   }
 </style>

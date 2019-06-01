@@ -24,4 +24,8 @@ export default {
   max-width: 100%;
   max-height: 100%;
 }
+body {
+   margin: 0;
+   padding: 0;
+}
 </style>

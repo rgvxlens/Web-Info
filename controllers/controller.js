@@ -183,7 +183,7 @@ var createProduct = function(req, res) {
             "rating":req.body.Product.rating,
             "marker":req.body.Product.marker,
             "address":req.body.Product.address,
-            "delivered":req.body.delivered
+            "delivered":false
         }
     );
 
@@ -238,9 +238,7 @@ var updateProductByName = function(req, res) {
     Product.findOne({name:restName}, function(err, product) {
         if (err) {
             res.sendStatus(404);
-        }
-        
-        product.userId = req.body.userId;
+        }        
         product.receiverName = req.body.receiverName;
         product.createdAt = req.body.createdAt;
         product.name = req.body.name;
@@ -326,6 +324,21 @@ var findProductByUserId = function(req, res) {
     });
 };
 
+// Find product from the receiver's name
+var findOrderByReceiverId = function(req, res) {
+    console.log(req.params)
+    var productUserId = req.params.receiverId;
+    console.log(productUserId)
+    Product.find({receiverName:productUserId}, function(err, product) {
+        if (!err) {
+            console.log('product', product)
+            res.send(product);
+        } else {
+            res.sendStatus(404);
+        }
+    });
+};
+
 //Update product's deliver status by product id and update the receiver
 var changeProductStatusById = function(req, res) {
     Product.findById(req.params.id, function(err, product) {
@@ -343,17 +356,22 @@ var changeProductStatusById = function(req, res) {
     });
 };
 
-// Find product from the receiver's name
-var findProductByReceiverName = function(req, res) {
-    var receiver_name = req.params.receiverName;
-    Product.find({receiverName:receiver_name}, function(err, product) {
-        if (!err) {
-            res.send(product);
-        } else {
+//Set product receiver 
+var setProductRecieverById = function(req, res) {
+    Product.findById(req.params.id, function(err, product) {
+        if (err) {
             res.sendStatus(404);
         }
+        //chnage receiver name
+        product.receiverName = req.body.receiverName;
+        product.save(function(err) {
+            if (err)
+                res.sendStatus(404);
+
+            res.send(product);
+        });
     });
-}; 
+};
 
 module.exports.createProduct = createProduct;
 module.exports.findAllProducts = findAllProducts;
@@ -365,7 +383,8 @@ module.exports.deleteProductById = deleteProductById;
 module.exports.findProductByCategory = findProductByCategory;
 module.exports.findProductByUserId = findProductByUserId;
 module.exports.changeProductStatusById = changeProductStatusById;
-module.exports.findProductByReceiverName = findProductByReceiverName;
+module.exports.findOrderByReceiverId = findOrderByReceiverId;
+module.exports.setProductRecieverById = setProductRecieverById;
 /* Product's operations end here */
 /************************************/
 

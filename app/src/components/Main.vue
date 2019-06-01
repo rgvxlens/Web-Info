@@ -1,4 +1,4 @@
-<template>
+<template class="onePage">
   <div class="pg">
     <el-row class="top">
       <el-row class="logo">
@@ -42,8 +42,34 @@
         </el-col>
       </el-row>
     </div>
-    <div class="map">
+    <div class="map" @click="updateSelectedMarker">
       <google-map ref="map"/>
+    </div>
+    <div class="reserveProduct"><el-row>
+        <el-col span=2>
+          <h3> Name: </h3>
+          {{ this.selectedMarker ? this.selectedMarker.position.name : ''}}
+        </el-col>
+        <el-col span=2>
+          <h3> Description: </h3>
+          {{ this.selectedMarker ? this.selectedMarker.position.description : '' }}
+        </el-col>
+        <el-col span=2>
+          <h3> Category: </h3>
+          {{ this.selectedMarker ? this.selectedMarker.position.category : '' }}
+        </el-col>
+        <el-col span=2>
+          <h3> Expiry Date: </h3>
+          {{ this.selectedMarker ? this.selectedMarker.position.expirationDate : '' }}
+        </el-col>
+        <el-col span=2>
+          <h3> Condition: </h3>
+          {{ this.selectedMarker ? this.selectedMarker.position.id : '' }}
+        </el-col>
+        <el-col span=2>
+          <el-button @click="reserveProduct"> Reserve </el-button>
+        </el-col>
+      </el-row>
     </div>
     <div class="addProduct-modal">
       <div class="addProduct-content">
@@ -152,11 +178,16 @@ export default {
         marker: '',
         category: '',
         condition: 0,
-        delivered: false
-      }
+        delivered: false,
+        _id: ''
+      },
+      selectedMarker: null
     }
   },
   methods: {
+    updateSelectedMarker () {
+      this.selectedMarker = this.$refs.map.selectedMarker
+    },
     addProduct () {
       document.querySelector('.addProduct-modal').style.display = 'flex'
       document.querySelector('.searchBar').style.display = 'none'
@@ -175,7 +206,6 @@ export default {
     },
     submit () {
       var url = process.env.ROOT_API + 'products'
-      console.log(url)
       axios.post(url, { Product: this.Product })
         .catch(error => {
           alert('Please fill all the information')
@@ -183,6 +213,7 @@ export default {
         })
       document.querySelector('.addProduct-modal').style.display = 'none'
       this.$refs.map.addThisMarker(this.Product)
+      this.reload()
     },
     logOut () {
       this.$store.state.name = ''
@@ -204,6 +235,13 @@ export default {
       // Search Query code in here, leave the line below at the bottom :)
       document.querySelector('.searchBar').style.display = 'none'
       this.$refs.map.searchProduct(this.Search)
+    },
+    reserveProduct () {
+      var url = process.env.ROOT_API + 'products/id/' + this.selectedMarker.position.id
+      axios.put(url, { receiverName: this.$store.state.id })
+        .catch(error => {
+          console.log('Reserving product faield: ' + error)
+        })
     }
   }
 }
@@ -309,6 +347,7 @@ export default {
   }
   .pg {
     height: 100%;
+    max-height: 100%;
     max-width: 100%;
   }
   .top {
@@ -361,5 +400,13 @@ export default {
   }
   .submit {
     padding-top: 30px;
+  }
+  .reserveProduct {
+    width: 100vw;
+    max-width: 100%;
+    max-height: 10vh;
+  }
+  .onePage {
+    max-height: 100vh;
   }
 </style>
