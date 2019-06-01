@@ -216,11 +216,13 @@ export default {
       this.reload()
     },
     dashboard () {
+      console.log(this.$session.get('user'))
       router.push({ name: 'dashboard' })
     },
     logOut () {
       this.$store.state.name = ''
       this.$store.state.id = ''
+      this.$session.destroy()
       router.push({ name: 'home' })
     },
     profile () {

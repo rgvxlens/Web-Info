@@ -27,10 +27,12 @@ export default {
   methods: {
     submit: function () {
       var userPasswd, userName, userID, userPhoneNumber
+      var temp
       var url = process.env.ROOT_API + 'users/name/' + this.User.name
       var p = this.User.password
       function getNameList () {
         return axios.get(url).then(response => {
+          temp = response.data
           userPasswd = response.data.password
           userName = response.data.name
           userID = response.data._id
@@ -42,6 +44,10 @@ export default {
           this.$store.state.name = userName
           this.$store.state.id = userID
           this.$store.state.phoneNumber = userPhoneNumber
+          // Store cookie
+          this.$session.start()
+          this.$session.set('user', temp)
+          console.log(this.$session.get('user'))
           router.push({ name: 'main' })
         } else {
           alert('Wrong username or password!')

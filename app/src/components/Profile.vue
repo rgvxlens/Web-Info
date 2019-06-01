@@ -275,6 +275,7 @@ export default {
       this.$store.state.name = ''
       this.$store.state.id = ''
       this.$store.state.phoneNumber = ''
+      this.$session.destroy()
       router.push({ name: 'home' })
     },
     main () {
