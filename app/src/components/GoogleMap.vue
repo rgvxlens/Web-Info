@@ -32,6 +32,7 @@ export default {
   name: 'GoogleMap',
   data () {
     return {
+      selectedMarker: null,
       center: { lat: -37.8136, lng: 144.9631 },
       map: null,
       markers: [],
@@ -55,15 +56,14 @@ export default {
 
   mounted () {
     this.geolocate()
+    this.showProducts()
   },
 
   methods: {
     setPlace (place) {
-      console.log('here')
       this.currentPlace = place
     },
     addMarker () {
-      console.log(this.currentPlace)
       if (this.currentPlace) {
         const marker = {
           lat: this.currentPlace.geometry.location.lat(),
@@ -81,6 +81,7 @@ export default {
         return
       }
       const marker = {
+        id: product._id,
         lat: product.marker.lat,
         lng: product.marker.lng,
         userId: product.userId,
@@ -96,7 +97,6 @@ export default {
     },
     /* When user adds a new product, call this function and pass the product in the parameter */
     addThisMarker (product) {
-      console.log(product.marker)
       this.copyProductToMarkerList(product)
     },
     // Show all the products on the map by default
@@ -154,6 +154,8 @@ export default {
       while (this.markers.length) { this.markers.pop() }
     },
     toggleInfoWindow: function (marker, idx) {
+      console.log(marker)
+      this.selectedMarker = marker
       this.infoWindowPos = marker.position
       this.infoContent = this.getInfoWindowContent(marker)
       if (this.currentMidx === idx) {

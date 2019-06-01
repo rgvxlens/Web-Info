@@ -48,11 +48,10 @@ router.get('/products/name/:name', controller.findProductByName);
 // Update product's data by name
 router.put('/products/name/:name', controller.updateProductByName);
 
-// Update product's data by id
-router.put('/products/id/:id', controller.updateProductById);
+//router.put('/products/id/:id', controller.updateProductByName);
 
 // Delete product by id
-router.delete('/products/id/:id', controller.deleteProductById);
+router.put('/products/id/:id', controller.setProductRecieverById);
 
 // Find productt from it's category
 router.get('/products/category/:category', controller.findProductByCategory);
@@ -60,13 +59,11 @@ router.get('/products/category/:category', controller.findProductByCategory);
 // Find product from it's userId(owner)
 router.get('/products/userId/:userId', controller.findProductByUserId);
 
+// Find product from the receiver's name
+router.get('/products/receiver/:receiverId', controller.findOrderByReceiverId);
+
 // Change the deliver status by product's id
 router.put('products/change_delivered_status/id/:id', controller.changeProductStatusById);
-
-// Find product from the receiver's name
-router.get('products/receiver/:receiverName/', controller.findProductByReceiverName);
-
-
 
 /* product's operations end here */
 /************************************/

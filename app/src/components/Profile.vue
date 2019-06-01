@@ -127,7 +127,7 @@
           label="Delivered"
           width="120">
           <template slot-scope="scope">
-            <el-button @click="deliver(scope.$index, tableData)" :type="delivered(scope.$index, tableData)" icon="el-icon-check" circle></el-button>
+            <el-button @click="deliver(scope.$index, orderData)" :type="delivered(scope.$index, orderData)" icon="el-icon-check" circle></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -240,12 +240,14 @@ export default {
         address: '',
         marker: '',
         category: '',
-        condition: 0
+        condition: 0,
+        delivered: false
       }
     }
   },
   created () {
     this.getProducts()
+    this.getOrders()
   },
   methods: {
     addProduct () {
@@ -295,18 +297,16 @@ export default {
     getProducts () {
       // var url = process.env.ROOT_API + 'products/'
       // axios.get(url).then(response => (this.tableData = response.data))
-      var url = process.env.ROOT_API + 'products/userId/' + this.$store.state.id
+      var url = process.env.ROOT_API + 'products/userId/' + '5cf23989181a93073ef637f2'
       axios.get(url).then(response => (this.tableData = response.data))
       console.log(this.tableData)
     },
-    // MAKE THIS GET ORDERS OR SOMETHING
     // The user ordered these products from other owners.
     // The user should be able to provide the rating (1 to 5) back to the owner.
     getOrders () {
-      // var url = process.env.ROOT_API + 'products/'
-      // axios.get(url).then(response => (this.tableData = response.data))
-      var url = process.env.ROOT_API + 'products/receiver/' + this.$store.state.name
-      axios.get(url).then(response => (this.tableData = response.data))
+      var url = process.env.ROOT_API + 'products/receiver/' + '5cf23989181a93073ef637f2'
+      axios.get(url).then(response => (this.orderData = response.data))
+      console.log('Order Data', this.orderData)
     },
     // Update the deliver status of this product
     deliver (index, rows) {
