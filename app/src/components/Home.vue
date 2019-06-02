@@ -22,7 +22,7 @@
       <el-row >
         <el-col :push=7 :span="5">
           <div class="grid-content intro-text">
-            <div> Food Safety </div>
+            <div class="heading"> Food Safety </div>
             <div> Its to be understood when using our platform we are focusing on the benefits of community,
             and thus asking for you to do your best to support it.
             You can do this by only adding products that you know are safe,
@@ -31,7 +31,7 @@
         </el-col>
         <el-col :push=7 :span="5">
           <div class="grid-content intro-text">
-            <div> Community Benefits </div>
+            <div class="heading"> Community Benefits </div>
             <div> We are aiming to reduce food waste in your community,
             this has great benefits to the community as it allows further interaction within
             the community and allows for a quantifible difference to be made.
@@ -42,7 +42,7 @@
       <el-row>
         <el-col :push=7 :span="10">
           <div class="grid-content intro-text">
-            <div> Start Contributing </div>
+            <div class="heading"> Start Contributing </div>
             <div> Join the movement now, sign up to get started. Once signed up its as simple as adding the food items around the house you no longer need and wait to be contacted by a potential suiter. </div>
             <div class="home-button">
               <el-button type="success" class="home-button" @click="signUp"> Sign Up </el-button>
@@ -189,6 +189,8 @@ export default {
     float: right;
   }
   .heading {
+    font-weight: bold;
+    font-size: 20px;
     color: green;
   }
 </style>

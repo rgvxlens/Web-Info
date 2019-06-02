@@ -48,7 +48,8 @@ router.get('/products/name/:name', controller.findProductByName);
 // Update product's data by name
 router.put('/products/name/:name', controller.updateProductByName);
 
-//router.put('/products/id/:id', controller.updateProductByName);
+// Delete product by id
+router.put('/products/deliver/id/:id', controller.updateProductById);
 
 // Delete product by id
 router.put('/products/id/:id', controller.setProductRecieverById);
