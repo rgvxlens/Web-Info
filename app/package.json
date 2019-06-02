@@ -21,6 +21,7 @@
     "vue-cookie": "^1.1.4",
     "vue-global-var": "^1.0.0",
     "vue-google-autocomplete": "^1.1.0",
+    "vue-passport": "^1.0.13",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
     "vue-session": "^1.0.0",

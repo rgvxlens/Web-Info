@@ -298,14 +298,14 @@ export default {
     getProducts () {
       // var url = process.env.ROOT_API + 'products/'
       // axios.get(url).then(response => (this.tableData = response.data))
-      var url = process.env.ROOT_API + 'products/userId/' + '5cf23989181a93073ef637f2'
+      var url = process.env.ROOT_API + 'products/userId/' + this.$session.get('user')._id
       axios.get(url).then(response => (this.tableData = response.data))
       console.log(this.tableData)
     },
     // The user ordered these products from other owners.
     // The user should be able to provide the rating (1 to 5) back to the owner.
     getOrders () {
-      var url = process.env.ROOT_API + 'products/receiver/' + '5cf23989181a93073ef637f2'
+      var url = process.env.ROOT_API + 'products/receiver/' + this.$session.get('user')._id
       axios.get(url).then(response => (this.orderData = response.data))
       console.log('Order Data', this.orderData)
     },

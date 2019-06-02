@@ -22,11 +22,11 @@
         </el-row>
         <el-row class="statrow">
           <h1> User Rank: </h1>
-          <h2 class="stat"> #3 </h2>
+          <h2 class="stat" id="user-rank"> #3 </h2>
         </el-row>
         <el-row class="statrow">
           <h1> Number of Orders: </h1>
-          <h2 class="stat"> #12 </h2>
+          <h2 class="stat" id="number-orders"> #12 </h2>
         </el-row>
         <el-row class="statrow">
           <h1> Top User: </h1>
