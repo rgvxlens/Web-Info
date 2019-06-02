@@ -16,7 +16,6 @@ export default {
     }
   },
   showCurrentSession: function () {
-    console.log(this.$session.get('user'))
   },
   methods: {
     logOut: function () {

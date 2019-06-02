@@ -8,7 +8,7 @@
         </el-image>
       </el-row >
       <el-col :span="8">
-        <i class="el-icon-s-unfold hamburg" @click="openMenu"></i>
+        <i class="el-icon-s-unfold hamburg bigger" @click="openMenu"></i>
       </el-col>
       <el-col :span="8">
       </el-col>
@@ -35,15 +35,15 @@
     </div>
     <div class="menu-modal">
       <div class="addProduct-content">
-        <i class="el-icon-close closeSubmit" @click="closeMenu"></i>
+        <i class="el-icon-close closeSubmit bigger" @click="closeMenu"></i>
         <div class="menuItems">
           <el-row>
-            <i @click="main" class="el-icon-map-location"></i>
+            <i @click="main" class="el-icon-map-location bigger"></i>
             <div> Main </div>
           </el-row>
           <el-row>
-            <i @click="dashboard" class="el-icon-odometer"></i>
-            <div> Dashboard </div>
+            <i @click="profile" class="el-icon-user-solid bigger"></i>
+            <div> {{ this.$session.get('user').name }} </div>
           </el-row>
           <el-button class="input-field" @click="logOut"> Log out </el-button>
         </div>
@@ -142,8 +142,8 @@ export default {
     main () {
       router.push({ name: 'main' })
     },
-    dashboard () {
-      router.push({ name: 'dashboard' })
+    profile () {
+      router.push({ name: 'profile' })
     },
     setPlace (place) {
       const marker = {
