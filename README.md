@@ -23,6 +23,31 @@ Please allow your browser to access your LOCATION for the map to load properly!
 
 * The website also features an interactive **login** and **sign-up** function which allows the user to create an account using their own credentials. This allows the user to keep a track of their posted products as well as the status about the same. The user can also toggle the status for a product (whether the product has been sold off or depleted).
 
+<br>
+
+## Predefined Users for Testing
+
+
+
+
+|                |Account 1                          |Account 2                         |
+|----------------|-------------------------------|-----------------------------|
+|`Username`|User_one    |User_two            |
+|`Password`         |password            |password            |
+|`Products uploaded (product 1)     `    |Bag of 100 apples|Sweet potato|
+|`Delivery Status (for product 1) `        |not delivered|not delivered|
+|`Rating (for product 1) `        |-|-|
+|`Products uploaded (product 2)    `  |Sourdough|Beef mince|
+|`Delivery Status (for product 2)`         |reserved - not delivered|delivered|
+|`Rating (for product 2)`         |-|4/5|
+|`Orders         `|Beef mince|Sourdough|
+|`Delivery Status (for the order above)`         |delivered|reserved not delivered|
+|`Rating (for the order above)`         |4/5|-|
+
+
+<br>
+
+
 ## Details about each feature
 ### Login/Sign-up (user-related features)
 #### Routes
