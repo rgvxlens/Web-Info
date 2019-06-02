@@ -21,7 +21,7 @@ Please allow your browser to access your LOCATION for the map to load properly!
 
 * A **search** functionality allowing the user to **filter** through a list of categories and look for **products** according to their needs. A variety of filters have been incorporated right now and more can be added accordingly.
 
-* The website also features an interactive **login** and **sign-up** function which allows the user to create an account using their own credentials. This allows the user to keep a track of their posted products as well as the status about the same. The user can also toggle the status for a product (whether the product has been sold off or depleted).
+* The website also features an interactive **login** and **sign-up** function which allows the user to create an account using their own credentials. This allows the user to keep a track of their posted products as well as the status about the same. The application does provide basic **session** functionality to keep tracking the user information, if user refresh the front page, the information would retain the same. The user can also toggle the status for a product (whether the product has been sold off or depleted).
 
 <br>
 
