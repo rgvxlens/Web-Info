@@ -7,22 +7,22 @@
             :src="'https://i.ibb.co/9hBzZQj/k2kSmall.png'">
         </el-image>
       </el-row >
-      <el-col :span="8">
-        <i class="el-icon-s-unfold hamburg" @click="openMenu"></i>
+      <el-col :span=8>
+        <i class="el-icon-s-unfold hamburg bigger" @click="openMenu"></i>
       </el-col>
-      <el-col :span="8">
+      <el-col :span=8>
         <div @click="searchBar">
           <el-input v-model="Search.query" placeholder="Search Query" size="small" class="searchInput">
          </el-input>
         </div>
       </el-col>
-      <el-col :span="8">
-        <i class="el-icon-plus addProduct" @click="addProduct"></i>
+      <el-col :span=8>
+        <i class="el-icon-plus addProduct bigger" @click="addProduct"></i>
       </el-col>
     </el-row>
     <div class="searchBar">
       <el-row class="searchRow">
-        <el-col :span="4" :offset="6">
+        <el-col :span=4 :offset="6">
           <div class="inputLabel"> category </div>
           <el-select size="mini" v-model="Search.category" placeholder="Select">
             <el-option
@@ -33,47 +33,24 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col class="searchCondition" :span="4">
+        <el-col class="searchCondition" :span=4>
           <div class="inputLabel"> condition </div>
           <el-rate v-model="Search.condition"></el-rate>
         </el-col>
-        <el-col class="searchButton" :span="4">
+        <el-col class="searchButton" :span=4>
            <el-button @click="search"> Search </el-button>
         </el-col>
       </el-row>
     </div>
-    <div class="map" @click="updateSelectedMarker">
+    <div @click="updateSelectedMarker">
       <google-map ref="map"/>
     </div>
-    <div class="reserveProduct"><el-row>
-        <el-col span=2>
-          <h3> Name: </h3>
-          {{ this.selectedMarker ? this.selectedMarker.position.name : ''}}
-        </el-col>
-        <el-col span=2>
-          <h3> Description: </h3>
-          {{ this.selectedMarker ? this.selectedMarker.position.description : '' }}
-        </el-col>
-        <el-col span=2>
-          <h3> Category: </h3>
-          {{ this.selectedMarker ? this.selectedMarker.position.category : '' }}
-        </el-col>
-        <el-col span=2>
-          <h3> Expiry Date: </h3>
-          {{ this.selectedMarker ? this.selectedMarker.position.expirationDate : '' }}
-        </el-col>
-        <el-col span=2>
-          <h3> Condition: </h3>
-          {{ this.selectedMarker ? this.selectedMarker.position.id : '' }}
-        </el-col>
-        <el-col span=2>
-          <el-button @click="reserveProduct"> Reserve </el-button>
-        </el-col>
-      </el-row>
+    <div class="reserveProduct">
+      <el-button class="longButton" @click="reserveProduct" :disabled="disabled()"> Reserve Product</el-button>
     </div>
     <div class="addProduct-modal">
       <div class="addProduct-content">
-        <i class="el-icon-close closeSubmit" @click="closeAddProduct"></i>
+        <i class="el-icon-close closeSubmit bigger" @click="closeAddProduct"></i>
         <h2> Add Product </h2>
         <el-input class="input-field" placeholder="Name" v-model="Product.name">
         </el-input>
@@ -111,14 +88,14 @@
     </div>
     <div class="menu-modal">
       <div class="addProduct-content">
-        <i class="el-icon-close closeSubmit" @click="closeMenu"></i>
+        <i class="el-icon-close closeSubmit bigger" @click="closeMenu"></i>
         <div class="menuItems">
           <el-row>
-            <i @click="profile" class="el-icon-user-solid"></i>
-            <div> Profile </div>
+            <i @click="profile" class="el-icon-user-solid bigger"></i>
+            <div> {{ this.$session.get('user').name }} </div>
           </el-row>
           <el-row>
-            <i @click="dashboard" class="el-icon-odometer"></i>
+            <i @click="dashboard" class="el-icon-odometer bigger"></i>
             <div> Dashboard </div>
           </el-row>
           <el-button class="input-field" @click="logOut"> Log out </el-button>
@@ -168,8 +145,8 @@ export default {
         query: ''
       },
       Product: {
-        userId: this.$store.state.id,
-        phoneNumber: this.$store.state.phoneNumber,
+        userId: this.$session.get('user')._id,
+        phoneNumber: this.$session.get('user').phoneNumber,
         receiverName: '',
         description: '',
         name: '',
@@ -185,6 +162,16 @@ export default {
     }
   },
   methods: {
+    disabled () {
+      let markerUserId = (this.selectedMarker ? this.selectedMarker.position.userId : '')
+      let userId = this.$session.get('user')._id
+
+      if (!this.selectedMarker || markerUserId === userId || !this.$refs.map.infoWinOpen) {
+        return true
+      } else {
+        return false
+      }
+    },
     updateSelectedMarker () {
       this.selectedMarker = this.$refs.map.selectedMarker
     },
@@ -216,7 +203,6 @@ export default {
       this.reload()
     },
     dashboard () {
-      console.log(this.$session.get('user'))
       router.push({ name: 'dashboard' })
     },
     logOut () {
@@ -243,10 +229,15 @@ export default {
     },
     reserveProduct () {
       var url = process.env.ROOT_API + 'products/id/' + this.selectedMarker.position.id
-      axios.put(url, { receiverName: this.$store.state.id })
+      axios.put(url, { receiverName: this.$session.get('user')._id })
         .catch(error => {
-          console.log('Reserving product faield: ' + error)
+          console.log('Reserving product failed: ' + error)
         })
+      this.$notify({
+        title: 'Success',
+        message: 'The product has been reserved',
+        type: 'success'
+      })
     }
   }
 }
@@ -357,6 +348,7 @@ export default {
   }
   .top {
     min-height: 100px;
+    max-width: 100%;
     height: 12%;
     margin-bottom: 16px;
   }
@@ -365,8 +357,10 @@ export default {
   }
   .hamburg {
     float: left;
+     padding-left: 10px;
   }
   .addProduct {
+    margin-right: 10px;
     float: right;
   }
   .addressInput {
@@ -409,11 +403,18 @@ export default {
     padding-top: 30px;
   }
   .reserveProduct {
-    width: 100vw;
+    padding-top: 4vh;
+    width: 100%;
     max-width: 100%;
     max-height: 10vh;
   }
   .onePage {
     max-height: 100vh;
+  }
+  .longButton {
+    width: 15%;
+  }
+  .bigger {
+    transform: scale(2, 2);
   }
 </style>

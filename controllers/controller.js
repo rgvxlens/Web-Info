@@ -326,12 +326,9 @@ var findProductByUserId = function(req, res) {
 
 // Find product from the receiver's name
 var findOrderByReceiverId = function(req, res) {
-    console.log(req.params)
     var productUserId = req.params.receiverId;
-    console.log(productUserId)
     Product.find({receiverName:productUserId}, function(err, product) {
         if (!err) {
-            console.log('product', product)
             res.send(product);
         } else {
             res.sendStatus(404);

@@ -8,43 +8,30 @@
         </el-image>
       </el-row >
       <el-col :span="8">
-        <i class="el-icon-s-unfold hamburg" @click="openMenu"></i>
-      </el-col>
-      <el-col :span="8">
-        <div>
-          <h3> PRODUCTS </h3>
-        </div>
-      </el-col>
-      <el-col :span="8">
+        <i class="el-icon-s-unfold hamburg bigger" @click="openMenu"></i>
       </el-col>
     </el-row>
-    <div class="searchBar">
-      <el-row class="searchRow">
-        <el-col :span="4" :offset="6">
-          <div class="inputLabel"> category </div>
-          <el-select size="mini" v-model="Search.category" placeholder="Select">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-col>
-        <el-col class="searchCondition" :span="4">
-          <div class="inputLabel"> condition </div>
-          <el-rate v-model="Search.condition"></el-rate>
-        </el-col>
-        <el-col class="searchButton" :span="4">
-           <el-button @click="search"> Search </el-button>
-        </el-col>
-      </el-row>
+    <div class="menu-modal">
+      <div class="addProduct-content">
+        <i class="el-icon-close closeSubmit bigger" @click="closeMenu"></i>
+        <div class="menuItems">
+          <el-row>
+            <i @click="main" class="el-icon-map-location bigger"></i>
+            <div> Main </div>
+          </el-row>
+          <el-row>
+            <i i @click="dashboard" class="el-icon-odometer bigger"></i>
+            <div> Dashboard </div>
+          </el-row>
+          <el-button class="input-field" @click="logOut"> Log out </el-button>
+        </div>
+      </div>
     </div>
     <div class="tableContent">
+      <h3> Products </h3>
       <el-table
-        class="table"
+        class="productTable"
         :data="tableData"
-        :row-class-name="tableRowClassName"
         height="300">
         <el-table-column
           fixed
@@ -70,12 +57,7 @@
         <el-table-column
           prop="condition"
           label="Condition"
-          width="120">
-        </el-table-column>
-        <el-table-column
-          prop="rating"
-          label="Rating"
-          width="120">
+          width="100">
         </el-table-column>
         <el-table-column
           fixed="right"
@@ -86,10 +68,10 @@
           </template>
         </el-table-column>
       </el-table>
+      <h3> Orders </h3>
       <el-table
         class="table"
         :data="orderData"
-        :row-class-name="tableRowClassName"
         height="300">
         <el-table-column
           fixed
@@ -120,7 +102,11 @@
         <el-table-column
           prop="rating"
           label="Rating"
-          width="120">
+          width="180">
+          <template slot-scope="scope">
+            <el-rate class="conditionLabel" v-model="orderData[scope.$index].rating">
+          </el-rate>
+          </template>
         </el-table-column>
         <el-table-column
           fixed="right"
@@ -131,60 +117,6 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
-    <div class="addProduct-modal">
-      <div class="addProduct-content">
-        <i class="el-icon-close closeSubmit" @click="closeAddProduct"></i>
-        <h2> Add Product </h2>
-        <el-input class="input-field" placeholder="Name" v-model="Product.name">
-        </el-input>
-        <el-input class="input-field" placeholder="Description" v-model="Product.description">
-        </el-input>
-        <div class="input-field">
-          <gmap-autocomplete
-            class="please el-input input-field"
-            @place_changed="setPlace">
-          </gmap-autocomplete>
-        </div>
-        <el-select class="category" v-model="Product.category" placeholder="Category">
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-        <el-date-picker
-          class="input-field"
-          v-model="Product.expirationDate"
-          type="date"
-          placeholder="Pick an expiry date">
-        </el-date-picker>
-        <el-row>
-          <div class="conditionLabel"> Condition: </div>
-          <el-rate class="conditionLabel" v-model="Product.condition">
-          </el-rate>
-        </el-row>
-        <el-row>
-          <el-button class="input-field" @click="submit"> Submit </el-button>
-        </el-row>
-      </div>
-    </div>
-    <div class="menu-modal">
-      <div class="addProduct-content">
-        <i class="el-icon-close closeSubmit" @click="closeMenu"></i>
-        <div class="menuItems">
-          <el-row>
-            <i @click="main" class="el-icon-map-location"></i>
-            <div> Main </div>
-          </el-row>
-          <el-row>
-            <i class="el-icon-odometer"></i>
-            <div> Dashboard </div>
-          </el-row>
-          <el-button class="input-field" @click="logOut"> Log out </el-button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -202,33 +134,13 @@ export default {
   data () {
     return {
       url: 'https://i.ibb.co/9hBzZQj/k2kSmall.png',
+      orderRating: 0,
       imageUrl: '',
       errors: [],
       value5: '',
       tableData: [],
       // Store order data in this
       orderData: [],
-      options: [{
-        value: 'Fruit',
-        label: 'Fruit'
-      }, {
-        value: 'Vegtable',
-        label: 'Vegtable'
-      }, {
-        value: 'Baking',
-        label: 'Baking'
-      }, {
-        value: 'Meat',
-        label: 'Meat'
-      }, {
-        value: 'Dairy',
-        label: 'Dairy'
-      }],
-      Search: {
-        category: '',
-        condition: 0,
-        query: ''
-      },
       Product: {
         _id: '',
         userId: '',
@@ -241,6 +153,7 @@ export default {
         marker: '',
         category: '',
         condition: 0,
+        rating: null,
         delivered: false
       }
     }
@@ -298,34 +211,42 @@ export default {
     getProducts () {
       // var url = process.env.ROOT_API + 'products/'
       // axios.get(url).then(response => (this.tableData = response.data))
-      var url = process.env.ROOT_API + 'products/userId/' + '5cf23989181a93073ef637f2'
+      var url = process.env.ROOT_API + 'products/userId/' + this.$session.get('user')._id
       axios.get(url).then(response => (this.tableData = response.data))
-      console.log(this.tableData)
     },
     // The user ordered these products from other owners.
     // The user should be able to provide the rating (1 to 5) back to the owner.
     getOrders () {
-      var url = process.env.ROOT_API + 'products/receiver/' + '5cf23989181a93073ef637f2'
+      var url = process.env.ROOT_API + 'products/receiver/' + this.$session.get('user')._id
       axios.get(url).then(response => (this.orderData = response.data))
       console.log('Order Data', this.orderData)
     },
     // Update the deliver status of this product
     deliver (index, rows) {
+      console.log('rating:', rows[index].rating)
+      if (!rows[index].rating) {
+        this.$notify({
+          title: 'Warning',
+          message: 'Please rate the order',
+          type: 'warning'
+        })
+        return
+      }
+      let deliveryStat = ''
       rows[index].delivered = !rows[index].delivered
-      // Now just set the receiverName is masonTest123
-      rows[index].receiverName = 'masonTest123'
-      var url = process.env.ROOT_API + 'products/id/'
-      axios.put(url + rows[index]._id, rows[index])
-    },
-    // The 'customer' could rate(feedback) the owner's product
-    // Noted: customer can only rate it once
-    // The PUT method doesn't read any input ======< haven't test this functionality yet.
-    rate (index, rows) {
-      var ownerId = rows[index].useId
-      // should read the rating somewhere, in this case, user rate it as 4
-      var rating = 4
-      var url = process.env.ROOT_API + '/users/id/' + ownerId + '/userRating/' + rating
-      axios.put(url)
+      var url = process.env.ROOT_API + 'products/deliver/id/' + rows[index]._id
+      axios.put(url, rows[index])
+
+      if (rows[index].delivered) {
+        deliveryStat = 'delivered'
+      } else {
+        deliveryStat = 'not delivered'
+      }
+      this.$notify({
+        title: 'Success',
+        message: 'Youve marked this order as ' + deliveryStat,
+        type: 'success'
+      })
     },
     tableRowClassName ({row, rowIndex}) {
       if (row.delivered) {
@@ -336,10 +257,13 @@ export default {
     },
     delivered (index, rows) {
       if (rows[index].delivered) {
-        return 'danger'
-      } else {
         return 'success'
+      } else {
+        return 'danger'
       }
+    },
+    dashboard () {
+      router.push({ name: 'dashboard' })
     }
   }
 }
@@ -456,6 +380,7 @@ export default {
   }
   .hamburg {
     float: left;
+    padding-left: 10px;
   }
   .addProduct {
     float: right;
@@ -465,14 +390,6 @@ export default {
     margin: 0px 8px;
     width: 100%;
     height: 5%;
-  }
-  .searchBar {
-    height: 12%;
-    display: none;
-  }
-  .searchRow {
-    min-height: 30px;
-    width: 100%;
   }
   .searchButton {
     padding-top: 0.7%;
@@ -499,9 +416,9 @@ export default {
     padding-top: 30px;
   }
   .tableContent {
-    padding-left: 10%;
+    padding-left: 20%;
     padding-right: 10%;
-    width: 80%;
+    width: 65%;
     height: 40%;
   }
   .el-table .warning-row {
@@ -513,5 +430,13 @@ export default {
   }
   .table {
     height: 100%;
+  }
+  .productTable {
+    height: 100%;
+    width: 80%;
+  }
+  .bigger {
+    transform: scale(2, 2);
+    cursor: pointer;
   }
 </style>

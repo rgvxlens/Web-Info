@@ -154,7 +154,6 @@ export default {
       while (this.markers.length) { this.markers.pop() }
     },
     toggleInfoWindow: function (marker, idx) {
-      console.log(marker)
       this.selectedMarker = marker
       this.infoWindowPos = marker.position
       this.infoContent = this.getInfoWindowContent(marker)
@@ -165,15 +164,13 @@ export default {
         this.currentMidx = idx
       }
     },
-    reserve () {
-      console.log('here')
-    },
     /* Set up the marker information here. As we pass the product info in the marker.position, we have to reference it by marker.position.$item */
     getInfoWindowContent: function (marker) {
       // Check the marker.position.userId with the cookies userId here
-      return ('<div>' + 'Product Description' + '<br>' + marker.position.name + '<br>' + marker.position.category + '<br>' +
-        'description: ' + marker.position.description + '<br>' + 'condition: ' + marker.position.condition + '<br>' +
-        marker.position.expirationDate + '<br>' + marker.position.address + '<br>' + marker.position.phoneNumber + '<div @click="reserve" class="no" id="contact">' + '<h2>' + 'Reserve Product' + '</h2>' + '</div>')
+      return ('<div>' + '<h3 class="subTitle">' + 'Product Description' + '</h3>' + marker.position.name +
+       '<h3 class="subTitle">' + 'Category' + '</h3>' + marker.position.category +
+        '<h3 class="subTitle">' + 'Description' + '</h3>' + marker.position.description + '<h3 class="subTitle">' + 'Condition' + '</h3>' + marker.position.condition + '/5' + '<br>' + '<h3 class="subTitle">' + 'Expiry' + '</h3>' +
+        marker.position.expirationDate + '<br>' + '<h3 class="subTitle">' + 'Address' + '</h3>' + marker.position.address + '<br>' + '<h3 class="subTitle">' + 'Phone number' + '</h3>' + marker.position.phoneNumber + '<h3 class="info">' + '(Reserve Product Below)' + '</h3>')
     }
   }
 }
@@ -182,6 +179,13 @@ export default {
   .no {
     color: green;
     cursor: pointer;
+  }
+  .subTitle {
+    font-size: 14px;
+    color: green;
+  }
+  .info {
+    font-size: 12px;
   }
 
 </style>

@@ -47,7 +47,6 @@ export default {
           // Store cookie
           this.$session.start()
           this.$session.set('user', temp)
-          console.log(this.$session.get('user'))
           router.push({ name: 'main' })
         } else {
           alert('Wrong username or password!')
