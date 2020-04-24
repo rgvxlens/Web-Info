@@ -7,6 +7,7 @@
 <p align="center">Deliverable 4: Frontend + Backend delivery
 <br>
 
+* [Kitchen2Kitchen - Industry Report](https://docs.google.com/presentation/d/1N1sQf-TLKrtrP71g0xaqBUtsDnml3rZhNq_APivx3cw/edit?usp=sharing)
 * [Kitchen2Kitchen on Heroku](https://kitchen2kitchen.herokuapp.com/#/home)
 * [Kitchen2Kitchen on Github](https://github.com/masonhsieh/Web-Info/tree/master/Project)
 ```
